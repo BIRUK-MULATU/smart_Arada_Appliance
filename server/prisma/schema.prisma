@@ -1,0 +1,70 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Category {
+  id       Int       @id @default(autoincrement())
+  slug     String    @unique
+  name     String
+  image    String    @default("/placeholder.svg")
+  sortOrder Int      @default(0)
+  products Product[]
+}
+
+model Product {
+  id         Int      @id @default(autoincrement())
+  name       String
+  spec       String
+  price      Int      @default(0)
+  oldPrice   Int?
+  onSale     Boolean  @default(false)
+  inStock    Boolean  @default(true)
+  image      String   @default("/placeholder.svg")
+  featured   Boolean  @default(false)
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Review {
+  id        Int    @id @default(autoincrement())
+  name      String
+  location  String
+  rating    Int    @default(5)
+  text      String
+  sortOrder Int    @default(0)
+}
+
+model FaqItem {
+  id        Int    @id @default(autoincrement())
+  question  String
+  answer    String
+  sortOrder Int    @default(0)
+}
+
+model Brand {
+  id        Int    @id @default(autoincrement())
+  name      String
+  sortOrder Int    @default(0)
+}
+
+// Singleton row (id is always 1) holding the "Deal of the week" banner content.
+model DealOfWeek {
+  id          Int      @id @default(1)
+  title       String
+  description String
+  endsAt      DateTime
+}
+
+// Singleton row (id is always 1) holding all shop/contact details as JSON,
+// matching the ShopSettingsData shape shared with the client.
+model ShopSettings {
+  id   Int    @id @default(1)
+  data String
+}
