@@ -68,3 +68,11 @@ body {
     animation: none;
   }
 }
+
+.fleet-floor-grid {
+  background-image:
+    repeating-linear-gradient(90deg, rgba(1, 60, 89, 0.18) 0, rgba(1, 60, 89, 0.18) 1px, transparent 1px, transparent 48px),
+    repeating-linear-gradient(0deg, rgba(1, 60, 89, 0.18) 0, rgba(1, 60, 89, 0.18) 1px, transparent 1px, transparent 48px);
+  mask-image: radial-gradient(ellipse 60% 60% at 50% 50%, black 0%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse 60% 60% at 50% 50%, black 0%, transparent 75%);
+}

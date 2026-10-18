@@ -33,25 +33,49 @@ export default function Brands() {
             className="animate-marquee flex w-max gap-8 group-hover/track:[animation-play-state:paused]"
             style={{ animationDuration: `${duration}s` }}
           >
-            {track.map((brand, i) => (
+            {track.map((brand, i) => {
+              const hasLogo = brand.logo !== '/placeholder.svg'
+              return (
               <div
                 key={`${brand.id}-${i}`}
-                className="group/card h-32 w-64 shrink-0 cursor-default [perspective:1200px]"
+                className="group/card h-36 w-64 shrink-0 cursor-default [perspective:1200px]"
               >
                 <div className="relative h-full w-full [transform-style:preserve-3d] transition-transform duration-700 ease-out group-hover/card:[transform:rotateY(180deg)]">
-                  {/* Front */}
-                  <div className="absolute inset-0 flex items-center justify-center rounded-2xl border border-border bg-white px-10 shadow-sm [backface-visibility:hidden]">
-                    {brand.logo === '/placeholder.svg' ? (
-                      <span className="text-xl font-extrabold tracking-tight text-navy/70">
-                        {brand.name}
-                      </span>
+                  {/* Front: real logo + name on white, or a glowing wordmark on the brand navy when no logo is set yet */}
+                  <div
+                    className={`absolute inset-0 flex flex-col items-center justify-center gap-3 overflow-hidden rounded-2xl px-8 py-6 transition-all duration-500 [backface-visibility:hidden] ${
+                      hasLogo
+                        ? 'border border-border bg-white shadow-sm group-hover/card:border-accent/40 group-hover/card:shadow-lg'
+                        : 'border border-navy bg-navy shadow-[0_0_25px_-10px_rgba(166,103,7,0.5)] group-hover/card:shadow-[0_0_45px_-8px_rgba(166,103,7,0.85)]'
+                    }`}
+                  >
+                    {hasLogo ? (
+                      <>
+                        <img
+                          src={brand.logo}
+                          alt={brand.name}
+                          className="max-h-12 max-w-full object-contain grayscale transition-all duration-500 group-hover/card:scale-110 group-hover/card:grayscale-0"
+                        />
+                        <span className="text-sm font-semibold text-navy/70 transition-colors duration-500 group-hover/card:text-navy">
+                          {brand.name}
+                        </span>
+                      </>
                     ) : (
-                      <img
-                        src={brand.logo}
-                        alt={brand.name}
-                        className="max-h-14 max-w-full object-contain grayscale"
-                      />
+                      <>
+                        <span className="pointer-events-none absolute left-1/2 top-1/2 h-24 w-24 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/40 blur-2xl transition-all duration-500 group-hover/card:bg-accent/70 group-hover/card:blur-3xl" />
+                        <span className="pointer-events-none absolute left-1/2 top-1/2 h-24 w-24 -translate-x-[70%] -translate-y-[30%] rounded-full bg-white/20 blur-2xl transition-all duration-500 group-hover/card:bg-white/30" />
+                        <span
+                          className="relative text-2xl font-extrabold uppercase tracking-[0.15em] text-white transition-transform duration-500 group-hover/card:scale-105"
+                          style={{
+                            textShadow:
+                              '0 0 10px rgba(166,103,7,0.9), 0 0 24px rgba(166,103,7,0.6), 0 0 36px rgba(255,255,255,0.4)',
+                          }}
+                        >
+                          {brand.name}
+                        </span>
+                      </>
                     )}
+                    <span className="relative h-0.5 w-6 origin-center scale-x-0 bg-accent transition-transform duration-500 group-hover/card:scale-x-100" />
                   </div>
 
                   {/* Back */}
@@ -64,7 +88,8 @@ export default function Brands() {
                   </div>
                 </div>
               </div>
-            ))}
+              )
+            })}
           </div>
         </div>
       )}
