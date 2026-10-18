@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import Container from './ui/Container'
 import Button from './ui/Button'
 import Icon from './ui/Icon'
@@ -103,18 +104,26 @@ export default function Hero() {
 
           {featuredProduct && (
             <div className="absolute -bottom-8 left-4 flex w-56 items-center gap-3 rounded-xl border border-border bg-white p-3 shadow-lg sm:left-8">
-              <div className="h-14 w-14 shrink-0 overflow-hidden rounded-lg bg-bg-light">
+              <Link
+                to={`/products/${featuredProduct.id}`}
+                className="h-14 w-14 shrink-0 overflow-hidden rounded-lg bg-bg-light"
+              >
                 <img
                   src={featuredProduct.image}
                   alt=""
                   className="h-full w-full object-cover"
                 />
-              </div>
+              </Link>
               <div className="min-w-0 flex-1">
                 <p className="text-[11px] font-semibold uppercase tracking-wide text-accent">
                   Featured product
                 </p>
-                <p className="truncate text-sm font-semibold text-navy">{featuredProduct.name}</p>
+                <Link
+                  to={`/products/${featuredProduct.id}`}
+                  className="block truncate text-sm font-semibold text-navy hover:text-accent"
+                >
+                  {featuredProduct.name}
+                </Link>
                 <div className="flex items-center justify-between gap-2">
                   <span className="text-sm font-bold text-navy">
                     {formatPrice(featuredProduct.price)}

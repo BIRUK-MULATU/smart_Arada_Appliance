@@ -6,6 +6,7 @@ import CategoriesPage from './pages/CategoriesPage'
 import ReviewsPage from './pages/ReviewsPage'
 import FaqPage from './pages/FaqPage'
 import BrandsPage from './pages/BrandsPage'
+import VideosPage from './pages/VideosPage'
 import DealPage from './pages/DealPage'
 import SettingsPage from './pages/SettingsPage'
 
@@ -20,6 +21,7 @@ export default function AdminApp() {
         <Route path="reviews" element={<ReviewsPage />} />
         <Route path="faq" element={<FaqPage />} />
         <Route path="brands" element={<BrandsPage />} />
+        <Route path="videos" element={<VideosPage />} />
         <Route path="deal" element={<DealPage />} />
         <Route path="settings" element={<SettingsPage />} />
       </Route>

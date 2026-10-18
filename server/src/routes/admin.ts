@@ -2,8 +2,15 @@ import { Router } from 'express'
 import { prisma } from '../lib/prisma.js'
 import { defaultSettings, parseSettings } from '../lib/settings.js'
 import { omitUndefined } from '../lib/omitUndefined.js'
-import type { AdminProduct } from '../types/product.js'
-import type { Brand, DealOfWeekData, FaqItem, Review, ShopSettingsData } from '../types/content.js'
+import type { AdminProduct, AdminProductSummary } from '../types/product.js'
+import type {
+  Brand,
+  DealOfWeekData,
+  FaqItem,
+  Review,
+  ShopSettingsData,
+  Video,
+} from '../types/content.js'
 
 const router = Router()
 
@@ -59,11 +66,42 @@ router.delete('/categories/:id', async (req, res) => {
 // ---------- Products ----------
 
 router.get('/products', async (_req, res) => {
-  const products = await prisma.product.findMany({ orderBy: { id: 'asc' } })
-  const shaped: AdminProduct[] = products.map((p) => ({
+  const products = await prisma.product.findMany({
+    include: { category: true, brand: true },
+    orderBy: { id: 'asc' },
+  })
+  const shaped: AdminProductSummary[] = products.map((p) => ({
+    id: p.id,
+    name: p.name,
+    price: p.price,
+    onSale: p.onSale,
+    inStock: p.inStock,
+    featured: p.featured,
+    categoryId: p.categoryId,
+    categoryLabel: p.category.name,
+    brandName: p.brand?.name ?? null,
+  }))
+  res.json(shaped)
+})
+
+router.get('/products/:id', async (req, res) => {
+  const id = Number(req.params.id)
+  const p = await prisma.product.findUnique({
+    where: { id },
+    include: {
+      images: { orderBy: { sortOrder: 'asc' } },
+      specs: { orderBy: { sortOrder: 'asc' } },
+    },
+  })
+  if (!p) {
+    res.status(404).json({ error: 'Product not found' })
+    return
+  }
+  const shaped: AdminProduct = {
     id: p.id,
     name: p.name,
     spec: p.spec,
+    description: p.description,
     price: p.price,
     oldPrice: p.oldPrice,
     onSale: p.onSale,
@@ -71,7 +109,10 @@ router.get('/products', async (_req, res) => {
     image: p.image,
     featured: p.featured,
     categoryId: p.categoryId,
-  }))
+    brandId: p.brandId,
+    images: p.images.map((img) => img.url),
+    specs: p.specs.map((s) => ({ label: s.label, value: s.value })),
+  }
   res.json(shaped)
 })
 
@@ -85,6 +126,7 @@ router.post('/products', async (req, res) => {
     data: {
       name: body.name,
       spec: body.spec || '',
+      description: body.description || '',
       price: body.price ?? 0,
       oldPrice: body.oldPrice ?? null,
       onSale: body.onSale ?? false,
@@ -92,6 +134,17 @@ router.post('/products', async (req, res) => {
       image: body.image || '/placeholder.svg',
       featured: body.featured ?? false,
       categoryId: Number(body.categoryId),
+      brandId: body.brandId ? Number(body.brandId) : null,
+      images: {
+        create: (body.images ?? [])
+          .filter((url) => url.trim())
+          .map((url, i) => ({ url, sortOrder: i })),
+      },
+      specs: {
+        create: (body.specs ?? [])
+          .filter((s) => s.label.trim())
+          .map((s, i) => ({ label: s.label, value: s.value, sortOrder: i })),
+      },
     },
   })
   res.status(201).json(product)
@@ -100,20 +153,39 @@ router.post('/products', async (req, res) => {
 router.put('/products/:id', async (req, res) => {
   const id = Number(req.params.id)
   const body = req.body as Partial<AdminProduct>
-  const product = await prisma.product.update({
-    where: { id },
-    data: omitUndefined({
-      name: body.name,
-      spec: body.spec,
-      price: body.price,
-      oldPrice: body.oldPrice,
-      onSale: body.onSale,
-      inStock: body.inStock,
-      image: body.image,
-      featured: body.featured,
-      categoryId: body.categoryId !== undefined ? Number(body.categoryId) : undefined,
-    }),
+
+  const data: Record<string, unknown> = omitUndefined({
+    name: body.name,
+    spec: body.spec,
+    description: body.description,
+    price: body.price,
+    oldPrice: body.oldPrice,
+    onSale: body.onSale,
+    inStock: body.inStock,
+    image: body.image,
+    featured: body.featured,
+    categoryId: body.categoryId !== undefined ? Number(body.categoryId) : undefined,
+    brandId: body.brandId !== undefined ? (body.brandId ? Number(body.brandId) : null) : undefined,
   })
+
+  if (body.images !== undefined) {
+    data.images = {
+      deleteMany: {},
+      create: body.images
+        .filter((url) => url.trim())
+        .map((url, i) => ({ url, sortOrder: i })),
+    }
+  }
+  if (body.specs !== undefined) {
+    data.specs = {
+      deleteMany: {},
+      create: body.specs
+        .filter((s) => s.label.trim())
+        .map((s, i) => ({ label: s.label, value: s.value, sortOrder: i })),
+    }
+  }
+
+  const product = await prisma.product.update({ where: { id }, data })
   res.json(product)
 })
 
@@ -201,7 +273,9 @@ router.post('/brands', async (req, res) => {
     res.status(400).json({ error: 'name is required' })
     return
   }
-  const brand = await prisma.brand.create({ data: { name: body.name, sortOrder: body.sortOrder ?? 0 } })
+  const brand = await prisma.brand.create({
+    data: { name: body.name, logo: body.logo || '/placeholder.svg', sortOrder: body.sortOrder ?? 0 },
+  })
   res.status(201).json(brand)
 })
 
@@ -213,6 +287,41 @@ router.put('/brands/:id', async (req, res) => {
 
 router.delete('/brands/:id', async (req, res) => {
   await prisma.brand.delete({ where: { id: Number(req.params.id) } })
+  res.status(204).end()
+})
+
+// ---------- Videos ----------
+
+router.get('/videos', async (_req, res) => {
+  res.json(await prisma.video.findMany({ orderBy: { sortOrder: 'asc' } }))
+})
+
+router.post('/videos', async (req, res) => {
+  const body = req.body as Partial<Video>
+  if (!body.platform || !body.caption || !body.url) {
+    res.status(400).json({ error: 'platform, caption and url are required' })
+    return
+  }
+  const video = await prisma.video.create({
+    data: {
+      platform: body.platform,
+      caption: body.caption,
+      url: body.url,
+      thumbnail: body.thumbnail || '/placeholder.svg',
+      sortOrder: body.sortOrder ?? 0,
+    },
+  })
+  res.status(201).json(video)
+})
+
+router.put('/videos/:id', async (req, res) => {
+  const body = req.body as Partial<Video>
+  const video = await prisma.video.update({ where: { id: Number(req.params.id) }, data: body })
+  res.json(video)
+})
+
+router.delete('/videos/:id', async (req, res) => {
+  await prisma.video.delete({ where: { id: Number(req.params.id) } })
   res.status(204).end()
 })
 

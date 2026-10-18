@@ -18,6 +18,16 @@ export type FaqItem = {
 export type Brand = {
   id: number
   name: string
+  logo: string
+  sortOrder: number
+}
+
+export type Video = {
+  id: number
+  platform: string
+  caption: string
+  url: string
+  thumbnail: string
   sortOrder: number
 }
 

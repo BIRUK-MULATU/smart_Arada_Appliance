@@ -6,12 +6,12 @@ import { useShopSettings } from '../hooks/useShopSettings'
 import { telegramOrderUrl } from '../lib/order'
 
 const navLinks = [
-  { label: 'Products', href: '#products' },
-  { label: 'Deals', href: '#deals' },
-  { label: 'Brands', href: '#brands' },
-  { label: 'How to order', href: '#how-to-order' },
-  { label: 'FAQ', href: '#faq' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Products', href: '/#products' },
+  { label: 'Deals', href: '/#deals' },
+  { label: 'Brands', href: '/#brands' },
+  { label: 'How to order', href: '/#how-to-order' },
+  { label: 'FAQ', href: '/#faq' },
+  { label: 'Contact', href: '/#contact' },
 ]
 
 export default function Header() {
@@ -21,10 +21,8 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-white">
       <Container className="flex h-16 items-center justify-between gap-4">
-        <a href="#top" className="flex items-center gap-2 font-extrabold text-navy">
-          <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-bg-light text-xs text-text-muted">
-            LOGO
-          </span>
+        <a href="/" className="flex items-center gap-2 font-extrabold text-navy">
+          <img src="/brand/logo-icon.png" alt="" className="h-9 w-9 object-contain" />
           <span className="text-lg">{settings.name}</span>
         </a>
 

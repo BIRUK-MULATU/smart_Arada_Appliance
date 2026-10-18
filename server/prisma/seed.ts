@@ -165,6 +165,18 @@ async function main() {
     await prisma.brand.create({ data: { name, sortOrder: i } })
   }
 
+  const videos = [
+    { platform: 'tiktok', caption: 'Unboxing our best-selling fridge', url: 'https://tiktok.com/@your_shop' },
+    { platform: 'instagram', caption: 'Washing machine: how it works', url: 'https://instagram.com/your_shop' },
+    { platform: 'facebook', caption: 'Customer delivery & installation', url: 'https://facebook.com/your_shop' },
+    { platform: 'youtube', caption: 'Smart TV setup in 2 minutes', url: 'https://youtube.com/@your_shop' },
+  ]
+  for (const [i, v] of videos.entries()) {
+    const existing = await prisma.video.findFirst({ where: { caption: v.caption } })
+    if (existing) continue
+    await prisma.video.create({ data: { ...v, thumbnail: '/placeholder.svg', sortOrder: i } })
+  }
+
   await prisma.dealOfWeek.upsert({
     where: { id: 1 },
     update: {},

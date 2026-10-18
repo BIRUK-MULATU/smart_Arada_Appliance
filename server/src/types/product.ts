@@ -7,12 +7,19 @@ export type Category = {
   sortOrder: number
 }
 
-// Public shape returned by /api/products — category is flattened to its slug/label.
+export type ProductSpec = {
+  label: string
+  value: string
+}
+
+// Public shape returned by /api/products (list/grid) — category and brand
+// are flattened to their display names, no images/specs/description.
 export type Product = {
   id: number
   name: string
   category: string
   categoryLabel: string
+  brandName: string | null
   spec: string
   price: number
   oldPrice: number | null
@@ -22,11 +29,19 @@ export type Product = {
   featured: boolean
 }
 
-// Admin shape used for editing — keeps the raw categoryId foreign key.
+// Public shape returned by /api/products/:id — the full detail page.
+export type ProductDetail = Product & {
+  description: string
+  images: string[]
+  specs: ProductSpec[]
+}
+
+// Admin shape used for editing — keeps the raw categoryId/brandId foreign keys.
 export type AdminProduct = {
   id: number
   name: string
   spec: string
+  description: string
   price: number
   oldPrice: number | null
   onSale: boolean
@@ -34,4 +49,20 @@ export type AdminProduct = {
   image: string
   featured: boolean
   categoryId: number
+  brandId: number | null
+  images: string[]
+  specs: ProductSpec[]
+}
+
+// What the admin list table needs — no images/specs, keeps the list fast.
+export type AdminProductSummary = {
+  id: number
+  name: string
+  price: number
+  onSale: boolean
+  inStock: boolean
+  featured: boolean
+  categoryId: number
+  categoryLabel: string
+  brandName: string | null
 }

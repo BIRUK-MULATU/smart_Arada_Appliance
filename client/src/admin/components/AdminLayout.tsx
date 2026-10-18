@@ -7,6 +7,7 @@ const navItems = [
   { to: '/admin/reviews', label: 'Reviews' },
   { to: '/admin/faq', label: 'FAQ' },
   { to: '/admin/brands', label: 'Brands' },
+  { to: '/admin/videos', label: 'Videos' },
   { to: '/admin/deal', label: 'Deal of the week' },
   { to: '/admin/settings', label: 'Shop settings' },
 ]
@@ -25,9 +26,12 @@ export default function AdminLayout() {
   return (
     <div className="flex min-h-screen bg-bg-light">
       <aside className="flex w-60 shrink-0 flex-col border-r border-border bg-white">
-        <div className="border-b border-border px-5 py-5">
-          <p className="font-extrabold text-navy">Smart Arada</p>
-          <p className="text-xs text-text-muted">Admin</p>
+        <div className="flex items-center gap-2 border-b border-border px-5 py-5">
+          <img src="/brand/logo-icon.png" alt="" className="h-8 w-8 object-contain" />
+          <div>
+            <p className="font-extrabold text-navy">Smart Arada</p>
+            <p className="text-xs text-text-muted">Admin</p>
+          </div>
         </div>
         <nav className="flex flex-1 flex-col gap-1 p-3">
           {navItems.map((item) => (

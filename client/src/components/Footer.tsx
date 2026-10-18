@@ -4,17 +4,17 @@ import { useShopSettings } from '../hooks/useShopSettings'
 import type { IconName } from './ui/Icon'
 
 const shopLinks = [
-  { label: 'Refrigerators', href: '#products' },
-  { label: 'Washing machines', href: '#products' },
-  { label: 'TVs', href: '#products' },
-  { label: 'Kitchen', href: '#products' },
+  { label: 'Refrigerators', href: '/#products' },
+  { label: 'Washing machines', href: '/#products' },
+  { label: 'TVs', href: '/#products' },
+  { label: 'Kitchen', href: '/#products' },
 ]
 
 const helpLinks = [
-  { label: 'How to order', href: '#how-to-order' },
-  { label: 'Delivery & warranty', href: '#delivery-warranty' },
-  { label: 'FAQ', href: '#faq' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'How to order', href: '/#how-to-order' },
+  { label: 'Delivery & warranty', href: '/#delivery-warranty' },
+  { label: 'FAQ', href: '/#faq' },
+  { label: 'Contact', href: '/#contact' },
 ]
 
 export default function Footer() {
@@ -34,9 +34,7 @@ export default function Footer() {
       <Container className="grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr]">
         <div className="flex flex-col gap-3">
           <div className="flex items-center gap-2 font-extrabold text-white">
-            <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-white/10 text-xs">
-              LOGO
-            </span>
+            <img src="/brand/logo-icon.png" alt="" className="h-9 w-9 object-contain" />
             <span className="text-lg">{settings.name}</span>
           </div>
           <p className="max-w-xs text-sm">{settings.tagline}</p>

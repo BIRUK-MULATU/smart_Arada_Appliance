@@ -9,6 +9,7 @@ const columns: ColumnConfig<Brand>[] = [
 
 const fields: FieldConfig[] = [
   { name: 'name', label: 'Brand name', type: 'text', required: true },
+  { name: 'logo', label: 'Logo image URL', type: 'text', placeholder: '/placeholder.svg' },
   { name: 'sortOrder', label: 'Sort order', type: 'number' },
 ]
 

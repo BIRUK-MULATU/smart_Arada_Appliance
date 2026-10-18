@@ -34,9 +34,12 @@ export default function LoginPage() {
         onSubmit={handleSubmit}
         className="flex w-full max-w-sm flex-col gap-4 rounded-xl border border-border bg-white p-8 shadow-sm"
       >
-        <div>
-          <h1 className="text-lg font-bold text-navy">Smart Arada Admin</h1>
-          <p className="text-sm text-text-muted">Sign in to manage your site content.</p>
+        <div className="flex items-center gap-3">
+          <img src="/brand/logo-icon.png" alt="" className="h-10 w-10 object-contain" />
+          <div>
+            <h1 className="text-lg font-bold text-navy">Smart Arada Admin</h1>
+            <p className="text-sm text-text-muted">Sign in to manage your site content.</p>
+          </div>
         </div>
 
         <label className="flex flex-col gap-1.5 text-sm">

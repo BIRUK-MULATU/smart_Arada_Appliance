@@ -1,26 +1,47 @@
 import Container from './ui/Container'
 import SectionHeading from './ui/SectionHeading'
+import Icon from './ui/Icon'
 import { useCategories } from '../hooks/useCatalog'
+import { useInView } from '../hooks/useInView'
 
 export default function CategoryGrid() {
   const { data: categories } = useCategories()
+  const { ref, inView } = useInView<HTMLDivElement>(0.2)
 
   return (
     <section className="bg-white py-16">
       <Container className="flex flex-col gap-8">
         <SectionHeading eyebrow="Shop by category" title="Everything for your home" />
 
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
-          {categories.map((category) => (
+        <div ref={ref} className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-6">
+          {categories.map((category, i) => (
             <a
               key={category.slug}
               href="#products"
-              className="group flex flex-col items-center gap-3 rounded-xl border border-border bg-white p-4 text-center transition hover:border-navy hover:shadow-sm"
+              aria-label={`Browse ${category.name}`}
+              className={`group aspect-[4/5] [perspective:1200px] transition-all duration-700 ease-out ${
+                inView ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+              }`}
+              style={{ transitionDelay: inView ? `${i * 80}ms` : '0ms' }}
             >
-              <div className="aspect-square w-full overflow-hidden rounded-lg bg-bg-light">
-                <img src={category.image} alt="" className="h-full w-full object-cover" />
+              <div className="relative h-full w-full [transform-style:preserve-3d] transition-transform duration-700 ease-out group-hover:[transform:rotateY(180deg)]">
+                {/* Front */}
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 rounded-xl border border-border bg-white p-4 text-center shadow-sm [backface-visibility:hidden]">
+                  <div className="aspect-square w-full overflow-hidden rounded-lg bg-bg-light">
+                    <img src={category.image} alt="" className="h-full w-full object-cover" />
+                  </div>
+                  <span className="text-sm font-semibold text-navy">{category.name}</span>
+                </div>
+
+                {/* Back */}
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 rounded-xl bg-navy p-4 text-center text-white [backface-visibility:hidden] [transform:rotateY(180deg)]">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10">
+                    <Icon name="chevronRight" className="h-5 w-5 text-accent" />
+                  </span>
+                  <span className="text-sm font-semibold">{category.name}</span>
+                  <span className="text-xs text-white/60">Browse now</span>
+                </div>
               </div>
-              <span className="text-sm font-semibold text-navy">{category.name}</span>
             </a>
           ))}
         </div>

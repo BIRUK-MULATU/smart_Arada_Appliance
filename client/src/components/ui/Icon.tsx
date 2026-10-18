@@ -4,6 +4,8 @@ export type IconName =
   | 'menu'
   | 'close'
   | 'chevronDown'
+  | 'chevronLeft'
+  | 'chevronRight'
   | 'star'
   | 'shieldCheck'
   | 'calendar'
@@ -27,6 +29,8 @@ const strokeIcons: Partial<Record<IconName, string>> = {
   menu: 'M4 6h16M4 12h16M4 18h16',
   close: 'M18 6 6 18M6 6l12 12',
   chevronDown: 'm6 9 6 6 6-6',
+  chevronLeft: 'm15 18-6-6 6-6',
+  chevronRight: 'm9 18 6-6-6-6',
   shieldCheck: 'M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3Zm-1.5 11.5L8 11l1.4-1.4 1.1 1.1 3.1-3.1L15 9Z',
   calendar: 'M8 2v4M16 2v4M3.5 9h17M4 5h16a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z',
   truck: 'M3 7h11v9H3zM14 10h4l3 3v3h-7zM6.5 20a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm11 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z',

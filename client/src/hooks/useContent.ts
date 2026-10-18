@@ -1,5 +1,5 @@
 import { useFetch } from './useFetch'
-import type { Brand, DealOfWeekData, FaqItem, Review } from '../types/content'
+import type { Brand, DealOfWeekData, FaqItem, Review, Video } from '../types/content'
 
 export function useReviews() {
   return useFetch<Review[]>('/api/reviews', [])
@@ -15,4 +15,8 @@ export function useBrands() {
 
 export function useDeal() {
   return useFetch<DealOfWeekData | null>('/api/deal', null)
+}
+
+export function useVideos() {
+  return useFetch<Video[]>('/api/videos', [])
 }

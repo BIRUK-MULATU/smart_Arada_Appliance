@@ -13,12 +13,14 @@ function getTimeLeft(target: string) {
 }
 
 export function useCountdown(target: string) {
-  const [timeLeft, setTimeLeft] = useState(() => getTimeLeft(target))
+  // `tick` has no meaning of its own — bumping it just forces a re-render
+  // every 30s so getTimeLeft(target) below is recomputed against the clock.
+  const [, setTick] = useState(0)
 
   useEffect(() => {
-    const interval = setInterval(() => setTimeLeft(getTimeLeft(target)), 1000 * 30)
+    const interval = setInterval(() => setTick((n) => n + 1), 1000 * 30)
     return () => clearInterval(interval)
-  }, [target])
+  }, [])
 
-  return timeLeft
+  return getTimeLeft(target)
 }

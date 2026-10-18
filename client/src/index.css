@@ -17,3 +17,27 @@ body {
   background-color: #ffffff;
   color: var(--color-navy);
 }
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  /* Longhand on purpose: the `animation` shorthand resets animation-play-state
+     to its initial value, which (being unlayered CSS) would always beat
+     Tailwind's layered `group-hover:[animation-play-state:paused]` utility. */
+  animation-name: marquee;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation: none;
+  }
+}
