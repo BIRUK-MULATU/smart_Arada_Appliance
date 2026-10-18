@@ -1,24 +1,27 @@
 import Container from './ui/Container'
 import Icon from './ui/Icon'
 import { useShopSettings } from '../hooks/useShopSettings'
+import { useLanguage } from '../context/LanguageContext'
 import type { IconName } from './ui/Icon'
+import type { TranslationKey } from '../i18n/translations'
 
-const shopLinks = [
-  { label: 'Refrigerators', href: '/#products' },
-  { label: 'Washing machines', href: '/#products' },
-  { label: 'TVs', href: '/#products' },
-  { label: 'Kitchen', href: '/#products' },
+const shopLinks: { key: TranslationKey; href: string }[] = [
+  { key: 'footer.refrigerators', href: '/#products' },
+  { key: 'footer.washingMachines', href: '/#products' },
+  { key: 'footer.tvs', href: '/#products' },
+  { key: 'footer.kitchen', href: '/#products' },
 ]
 
-const helpLinks = [
-  { label: 'How to order', href: '/#how-to-order' },
-  { label: 'Delivery & warranty', href: '/#delivery-warranty' },
-  { label: 'FAQ', href: '/#faq' },
-  { label: 'Contact', href: '/#contact' },
+const helpLinks: { key: TranslationKey; href: string }[] = [
+  { key: 'header.nav.howToOrder', href: '/#how-to-order' },
+  { key: 'footer.deliveryWarranty', href: '/#delivery-warranty' },
+  { key: 'header.nav.faq', href: '/#faq' },
+  { key: 'header.nav.contact', href: '/#contact' },
 ]
 
 export default function Footer() {
   const { settings } = useShopSettings()
+  const { t } = useLanguage()
   const year = new Date().getFullYear()
 
   const socialLinks: { label: string; icon: IconName; url: string }[] = [
@@ -41,12 +44,12 @@ export default function Footer() {
         </div>
 
         <div>
-          <h3 className="text-sm font-semibold text-white">Shop</h3>
+          <h3 className="text-sm font-semibold text-white">{t('footer.shop')}</h3>
           <ul className="mt-4 flex flex-col gap-2 text-sm">
             {shopLinks.map((link) => (
-              <li key={link.label}>
+              <li key={link.key}>
                 <a href={link.href} className="hover:text-white">
-                  {link.label}
+                  {t(link.key)}
                 </a>
               </li>
             ))}
@@ -54,12 +57,12 @@ export default function Footer() {
         </div>
 
         <div>
-          <h3 className="text-sm font-semibold text-white">Help</h3>
+          <h3 className="text-sm font-semibold text-white">{t('footer.help')}</h3>
           <ul className="mt-4 flex flex-col gap-2 text-sm">
             {helpLinks.map((link) => (
-              <li key={link.label}>
+              <li key={link.key}>
                 <a href={link.href} className="hover:text-white">
-                  {link.label}
+                  {t(link.key)}
                 </a>
               </li>
             ))}
@@ -67,7 +70,7 @@ export default function Footer() {
         </div>
 
         <div>
-          <h3 className="text-sm font-semibold text-white">Follow us</h3>
+          <h3 className="text-sm font-semibold text-white">{t('footer.followUs')}</h3>
           <ul className="mt-4 flex flex-col gap-2 text-sm">
             {socialLinks.map((link) => (
               <li key={link.label}>
@@ -89,9 +92,9 @@ export default function Footer() {
       <div className="border-t border-white/10">
         <Container className="flex flex-col gap-2 py-5 text-xs text-white/60 sm:flex-row sm:items-center sm:justify-between">
           <p>
-            © {year} {settings.name}. All rights reserved.
+            © {year} {settings.name}. {t('footer.rights')}
           </p>
-          <p>Addis Ababa, Ethiopia</p>
+          <p>{t('footer.location')}</p>
         </Container>
       </div>
     </footer>

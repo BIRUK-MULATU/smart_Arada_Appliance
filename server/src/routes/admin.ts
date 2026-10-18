@@ -331,8 +331,13 @@ router.get('/deal', async (_req, res) => {
   const deal = await prisma.dealOfWeek.findUnique({ where: { id: 1 } })
   res.json(
     deal
-      ? { title: deal.title, description: deal.description, endsAt: deal.endsAt.toISOString() }
-      : { title: '', description: '', endsAt: new Date().toISOString() },
+      ? {
+          title: deal.title,
+          description: deal.description,
+          endsAt: deal.endsAt.toISOString(),
+          image: deal.image,
+        }
+      : { title: '', description: '', endsAt: new Date().toISOString(), image: '' },
   )
 })
 
@@ -349,14 +354,21 @@ router.put('/deal', async (req, res) => {
       title: body.title,
       description: body.description || '',
       endsAt: new Date(body.endsAt),
+      image: body.image || '',
     },
     update: {
       title: body.title,
       description: body.description ?? '',
       endsAt: new Date(body.endsAt),
+      image: body.image ?? '',
     },
   })
-  res.json({ title: deal.title, description: deal.description, endsAt: deal.endsAt.toISOString() })
+  res.json({
+    title: deal.title,
+    description: deal.description,
+    endsAt: deal.endsAt.toISOString(),
+    image: deal.image,
+  })
 })
 
 // ---------- Shop settings (singleton) ----------

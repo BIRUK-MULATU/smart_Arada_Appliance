@@ -98,7 +98,12 @@ router.get('/deal', async (_req, res) => {
     res.status(404).json({ error: 'Deal of the week is not set up yet' })
     return
   }
-  res.json({ title: deal.title, description: deal.description, endsAt: deal.endsAt.toISOString() })
+  res.json({
+    title: deal.title,
+    description: deal.description,
+    endsAt: deal.endsAt.toISOString(),
+    image: deal.image,
+  })
 })
 
 router.get('/settings', async (_req, res) => {

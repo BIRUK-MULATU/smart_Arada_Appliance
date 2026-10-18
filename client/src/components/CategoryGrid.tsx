@@ -3,15 +3,17 @@ import SectionHeading from './ui/SectionHeading'
 import Icon from './ui/Icon'
 import { useCategories } from '../hooks/useCatalog'
 import { useInView } from '../hooks/useInView'
+import { useLanguage } from '../context/LanguageContext'
 
 export default function CategoryGrid() {
   const { data: categories } = useCategories()
   const { ref, inView } = useInView<HTMLDivElement>(0.2)
+  const { t } = useLanguage()
 
   return (
     <section className="bg-white py-16">
       <Container className="flex flex-col gap-8">
-        <SectionHeading eyebrow="Shop by category" title="Everything for your home" />
+        <SectionHeading eyebrow={t('categories.eyebrow')} title={t('categories.title')} />
 
         <div ref={ref} className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-6">
           {categories.map((category, i) => (
@@ -39,7 +41,7 @@ export default function CategoryGrid() {
                     <Icon name="chevronRight" className="h-5 w-5 text-accent" />
                   </span>
                   <span className="text-sm font-semibold">{category.name}</span>
-                  <span className="text-xs text-white/60">Browse now</span>
+                  <span className="text-xs text-white/60">{t('categories.browseNow')}</span>
                 </div>
               </div>
             </a>

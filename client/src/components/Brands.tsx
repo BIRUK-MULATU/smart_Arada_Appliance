@@ -3,10 +3,12 @@ import SectionHeading from './ui/SectionHeading'
 import Icon from './ui/Icon'
 import { useBrands } from '../hooks/useContent'
 import { useInView } from '../hooks/useInView'
+import { useLanguage } from '../context/LanguageContext'
 
 export default function Brands() {
   const { data: brands } = useBrands()
   const { ref, inView } = useInView<HTMLDivElement>(0.3)
+  const { t } = useLanguage()
 
   // Exactly two copies back-to-back, so animating from 0 to -50% of the
   // track width loops seamlessly with no visible jump.
@@ -20,11 +22,9 @@ export default function Brands() {
           inView ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
         }`}
       >
-        <SectionHeading align="center" eyebrow="Our partners" title="Brands we carry" />
+        <SectionHeading align="center" eyebrow={t('brands.eyebrow')} title={t('brands.title')} />
 
-        {track.length === 0 && (
-          <p className="text-sm text-text-muted">Brands you add in the admin will show up here.</p>
-        )}
+        {track.length === 0 && <p className="text-sm text-text-muted">{t('brands.empty')}</p>}
       </Container>
 
       {track.length > 0 && (
@@ -60,7 +60,7 @@ export default function Brands() {
                       <Icon name="shieldCheck" className="h-5 w-5 text-accent" />
                     </span>
                     <span className="text-sm font-semibold">{brand.name}</span>
-                    <span className="text-xs text-white/60">Genuine products</span>
+                    <span className="text-xs text-white/60">{t('brands.genuine')}</span>
                   </div>
                 </div>
               </div>

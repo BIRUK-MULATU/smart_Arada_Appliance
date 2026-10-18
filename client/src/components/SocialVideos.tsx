@@ -4,6 +4,8 @@ import Container from './ui/Container'
 import Icon from './ui/Icon'
 import { useShopSettings } from '../hooks/useShopSettings'
 import { useVideos } from '../hooks/useContent'
+import { useInView } from '../hooks/useInView'
+import { useLanguage } from '../context/LanguageContext'
 import { platformIcon, platformLabel } from '../lib/platformIcon'
 
 const AUTO_ADVANCE_MS = 3200
@@ -48,6 +50,8 @@ export default function SocialVideos() {
   const { settings } = useShopSettings()
   const { data: videos } = useVideos()
   const [activeIndex, setActiveIndex] = useState(0)
+  const { ref, inView } = useInView<HTMLDivElement>(0.2)
+  const { t } = useLanguage()
 
   // Clamp here instead of syncing via effect — keeps this safe even if the
   // video list shrinks or loads in after activeIndex was already advanced.
@@ -67,16 +71,18 @@ export default function SocialVideos() {
   }
 
   return (
-    <section className="bg-navy py-16 text-white">
-      <Container className="flex flex-col gap-8">
+    <section ref={ref} className="bg-navy py-16 text-white">
+      <Container
+        className={`flex flex-col gap-8 transition-all duration-700 ease-out ${
+          inView ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+        }`}
+      >
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-xl">
             <span className="text-sm font-semibold uppercase tracking-wide text-accent">
-              Watch our videos
+              {t('videos.eyebrow')}
             </span>
-            <h2 className="mt-3 text-3xl font-extrabold sm:text-4xl">
-              See the products in action
-            </h2>
+            <h2 className="mt-3 text-3xl font-extrabold sm:text-4xl">{t('videos.title')}</h2>
           </div>
 
           <div className="flex flex-wrap items-center gap-3">
@@ -102,7 +108,7 @@ export default function SocialVideos() {
                 <button
                   type="button"
                   onClick={() => goTo(activeIndex - 1)}
-                  aria-label="Previous video"
+                  aria-label={t('videos.prev')}
                   className="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 hover:bg-white/10"
                 >
                   <Icon name="chevronLeft" className="h-4 w-4" />
@@ -110,7 +116,7 @@ export default function SocialVideos() {
                 <button
                   type="button"
                   onClick={() => goTo(activeIndex + 1)}
-                  aria-label="Next video"
+                  aria-label={t('videos.next')}
                   className="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 hover:bg-white/10"
                 >
                   <Icon name="chevronRight" className="h-4 w-4" />
@@ -121,7 +127,7 @@ export default function SocialVideos() {
         </div>
 
         {videos.length === 0 ? (
-          <p className="text-sm text-white/60">Videos you add in the admin will show up here.</p>
+          <p className="text-sm text-white/60">{t('videos.empty')}</p>
         ) : (
           <>
             <div

@@ -3,13 +3,17 @@
 @theme {
   --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
 
-  --color-navy: #0f1b2d;
-  --color-accent: #c2410c;
-  --color-accent-dark: #9a330a;
-  --color-bg-light: #f5f7fa;
-  --color-border: #e6eaf0;
-  --color-text-secondary: #3a4a63;
-  --color-text-muted: #5b6676;
+  /* Palette derived from the Smart Arada logo: navy cart + blue phone body
+     (same ~200° hue, so the neutrals below are tinted to match) and the
+     gold-orange arrow (darkened from the logo's raw #f69e1b so white button
+     text keeps WCAG AA contrast — 4.6:1 vs. 2.2:1 for the raw logo tone). */
+  --color-navy: #013c59;
+  --color-accent: #a66707;
+  --color-accent-dark: #895506;
+  --color-bg-light: #f5f8fa;
+  --color-border: #e6ecf0;
+  --color-text-secondary: #3a5563;
+  --color-text-muted: #5b6d76;
 }
 
 body {
@@ -38,6 +42,29 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .animate-marquee {
+    animation: none;
+  }
+}
+
+@keyframes orbit3d {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
+.animate-orbit3d {
+  /* Longhand for the same reason as .animate-marquee above: it lets
+     group-hover:[animation-play-state:paused] win over the base state. */
+  animation-name: orbit3d;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-orbit3d {
     animation: none;
   }
 }

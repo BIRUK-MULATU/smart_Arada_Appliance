@@ -34,6 +34,7 @@ export type DealOfWeekData = {
   title: string
   description: string
   endsAt: string
+  image: string
 }
 
 export type ShopSettingsData = {

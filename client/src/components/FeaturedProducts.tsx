@@ -1,13 +1,17 @@
 import { useMemo, useState } from 'react'
+import { Link } from 'react-router-dom'
 import Container from './ui/Container'
 import SectionHeading from './ui/SectionHeading'
-import Button from './ui/Button'
 import ProductCard from './ProductCard'
 import { useProducts } from '../hooks/useCatalog'
+import { useInView } from '../hooks/useInView'
+import { useLanguage } from '../context/LanguageContext'
 
 export default function FeaturedProducts() {
   const { data: products } = useProducts()
   const [activeCategory, setActiveCategory] = useState<string>('all')
+  const { ref, inView } = useInView<HTMLDivElement>(0.2)
+  const { t } = useLanguage()
 
   const featured = useMemo(() => products.filter((p) => p.featured), [products])
 
@@ -23,10 +27,14 @@ export default function FeaturedProducts() {
     activeCategory === 'all' ? featured : featured.filter((p) => p.category === activeCategory)
 
   return (
-    <section id="products" className="bg-white py-16">
-      <Container className="flex flex-col gap-8">
+    <section ref={ref} id="products" className="bg-white py-16">
+      <Container
+        className={`flex flex-col gap-8 transition-all duration-700 ease-out ${
+          inView ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+        }`}
+      >
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-          <SectionHeading eyebrow="Featured" title="Popular right now" />
+          <SectionHeading eyebrow={t('featured.eyebrow')} title={t('featured.title')} />
 
           <div className="flex flex-wrap gap-2" role="tablist" aria-label="Filter products by category">
             <button
@@ -40,7 +48,7 @@ export default function FeaturedProducts() {
                   : 'border border-border text-text-secondary hover:border-navy'
               }`}
             >
-              All
+              {t('featured.all')}
             </button>
             {tabs.map((tab) => (
               <button
@@ -68,7 +76,12 @@ export default function FeaturedProducts() {
         </div>
 
         <div className="flex justify-center">
-          <Button variant="outline">View all products</Button>
+          <Link
+            to="/products"
+            className="inline-flex items-center justify-center gap-2 rounded-lg border border-border bg-white px-5 py-3 text-sm font-semibold text-navy transition-colors hover:border-navy focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          >
+            {t('featured.viewAll')}
+          </Link>
         </div>
       </Container>
     </section>

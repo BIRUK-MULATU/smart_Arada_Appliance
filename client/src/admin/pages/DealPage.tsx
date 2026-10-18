@@ -14,9 +14,12 @@ function fromLocalInputValue(local: string) {
 }
 
 export default function DealPage() {
-  const [form, setForm] = useState<{ title: string; description: string; endsAt: string } | null>(
-    null,
-  )
+  const [form, setForm] = useState<{
+    title: string
+    description: string
+    endsAt: string
+    image: string
+  } | null>(null)
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [message, setMessage] = useState<string | null>(null)
@@ -30,6 +33,7 @@ export default function DealPage() {
           title: deal.title,
           description: deal.description,
           endsAt: toLocalInputValue(deal.endsAt),
+          image: deal.image,
         }),
       )
       .catch((err) => setError(err instanceof Error ? err.message : 'Failed to load'))
@@ -47,6 +51,7 @@ export default function DealPage() {
         title: form.title,
         description: form.description,
         endsAt: fromLocalInputValue(form.endsAt),
+        image: form.image,
       })
       setMessage('Saved.')
     } catch (err) {
@@ -82,6 +87,18 @@ export default function DealPage() {
             value={form.description}
             onChange={(e) => setForm({ ...form, description: e.target.value })}
           />
+        </label>
+
+        <label className="flex flex-col gap-1.5 text-sm">
+          <span className="font-medium text-navy">Photo URL</span>
+          <input
+            type="text"
+            placeholder="/fleet/delivery-van.jpg"
+            className="rounded-lg border border-border px-3 py-2 text-sm focus:border-navy focus:outline-none"
+            value={form.image}
+            onChange={(e) => setForm({ ...form, image: e.target.value })}
+          />
+          <span className="text-xs text-text-muted">Shown beside the deal banner on the homepage.</span>
         </label>
 
         <label className="flex flex-col gap-1.5 text-sm">

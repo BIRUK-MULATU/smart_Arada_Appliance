@@ -17,6 +17,9 @@ export type IconName =
   | 'messageCircle'
   | 'plus'
   | 'minus'
+  | 'search'
+  | 'volume'
+  | 'volumeOff'
   | 'tiktok'
   | 'telegram'
   | 'facebook'
@@ -37,6 +40,9 @@ const strokeIcons: Partial<Record<IconName, string>> = {
   wrench:
     'M14.7 6.3a4 4 0 0 0-5.6 4.86l-6.8 6.8a1.5 1.5 0 0 0 2.12 2.12l6.8-6.8a4 4 0 0 0 4.86-5.6l-2.6 2.6-2.3-2.3Z',
   mapPin: 'M12 22s7-6.1 7-12a7 7 0 1 0-14 0c0 5.9 7 12 7 12Zm0-9a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z',
+  search: 'M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16ZM21 21l-4.35-4.35',
+  volume: 'M4 9v6h4l5 5V4L8 9H4ZM16.5 8.5a5 5 0 0 1 0 7M19 5.5a9 9 0 0 1 0 13',
+  volumeOff: 'M4 9v6h4l5 5V4L8 9H4ZM16 9l5 5M21 9l-5 5',
   clock: 'M12 7v5l3.5 2M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z',
   messageCircle:
     'M21 11.5a8.5 8.5 0 0 1-8.5 8.5 8.4 8.4 0 0 1-4-1l-4.5 1 1.1-4.3A8.5 8.5 0 1 1 21 11.5Z',

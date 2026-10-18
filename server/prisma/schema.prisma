@@ -93,6 +93,7 @@ model DealOfWeek {
   title       String
   description String
   endsAt      DateTime
+  image       String   @default("")
 }
 
 // Singleton row (id is always 1) holding all shop/contact details as JSON,

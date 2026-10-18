@@ -2,22 +2,28 @@ import { useState } from 'react'
 import Container from './ui/Container'
 import Icon from './ui/Icon'
 import { useFaqItems } from '../hooks/useContent'
+import { useInView } from '../hooks/useInView'
+import { useLanguage } from '../context/LanguageContext'
 
 export default function Faq() {
   const { data: faqs } = useFaqItems()
   const [openIndex, setOpenIndex] = useState(0)
+  const { ref, inView } = useInView<HTMLDivElement>(0.2)
+  const { t } = useLanguage()
 
   return (
-    <section id="faq" className="bg-white py-16">
-      <Container className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)]">
+    <section ref={ref} id="faq" className="bg-white py-16">
+      <Container
+        className={`grid gap-10 transition-all duration-700 ease-out lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] ${
+          inView ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+        }`}
+      >
         <div>
-          <span className="text-sm font-semibold uppercase tracking-wide text-accent">FAQ</span>
-          <h2 className="mt-3 text-3xl font-extrabold text-navy sm:text-4xl">
-            Questions? We&apos;ve got answers.
-          </h2>
-          <p className="mt-3 text-text-muted">
-            Can&apos;t find what you need? Send us a message on Telegram and we&apos;ll reply fast.
-          </p>
+          <span className="text-sm font-semibold uppercase tracking-wide text-accent">
+            {t('faq.eyebrow')}
+          </span>
+          <h2 className="mt-3 text-3xl font-extrabold text-navy sm:text-4xl">{t('faq.title')}</h2>
+          <p className="mt-3 text-text-muted">{t('faq.desc')}</p>
         </div>
 
         <div className="flex flex-col gap-3">

@@ -1,12 +1,14 @@
 import { Link } from 'react-router-dom'
 import Icon from './ui/Icon'
 import { useShopSettings } from '../hooks/useShopSettings'
+import { useLanguage } from '../context/LanguageContext'
 import { telegramOrderUrl } from '../lib/order'
 import { formatOldPrice, formatPrice } from '../lib/format'
 import type { Product } from '../types/product'
 
 export default function ProductCard({ product }: { product: Product }) {
   const { settings } = useShopSettings()
+  const { t } = useLanguage()
 
   return (
     <div className="group flex flex-col overflow-hidden rounded-xl border border-border bg-white transition-all duration-300 ease-out hover:-translate-y-1 hover:border-navy hover:shadow-lg">
@@ -16,7 +18,7 @@ export default function ProductCard({ product }: { product: Product }) {
       >
         {product.onSale && (
           <span className="absolute left-3 top-3 z-10 rounded-full bg-navy px-2.5 py-1 text-[11px] font-semibold uppercase text-white">
-            Sale
+            {t('productCard.sale')}
           </span>
         )}
         <img
@@ -46,7 +48,7 @@ export default function ProductCard({ product }: { product: Product }) {
           {product.inStock && (
             <div className="flex items-center gap-1.5 text-xs text-emerald-700">
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-600" />
-              In stock
+              {t('productCard.inStock')}
             </div>
           )}
         </Link>
@@ -58,7 +60,7 @@ export default function ProductCard({ product }: { product: Product }) {
             rel="noreferrer"
             className="flex flex-1 items-center justify-center rounded-lg bg-accent px-4 py-2.5 text-sm font-semibold text-white hover:bg-accent-dark"
           >
-            Order now
+            {t('productCard.orderNow')}
           </a>
           <a
             href={settings.phoneHref}
