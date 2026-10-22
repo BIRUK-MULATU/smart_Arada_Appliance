@@ -12,10 +12,10 @@ export default function CategoryGrid() {
 
   return (
     <section className="bg-white py-16">
-      <Container className="flex flex-col gap-8">
+      <Container fluid className="flex flex-col gap-8">
         <SectionHeading eyebrow={t('categories.eyebrow')} title={t('categories.title')} />
 
-        <div ref={ref} className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-6">
+        <div ref={ref} className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-6 xl:grid-cols-8">
           {categories.map((category, i) => (
             <a
               key={category.slug}

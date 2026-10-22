@@ -29,6 +29,7 @@ export default function FeaturedProducts() {
   return (
     <section ref={ref} id="products" className="bg-white py-16">
       <Container
+        fluid
         className={`flex flex-col gap-8 transition-all duration-700 ease-out ${
           inView ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
         }`}
@@ -69,7 +70,7 @@ export default function FeaturedProducts() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
           {visibleProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
