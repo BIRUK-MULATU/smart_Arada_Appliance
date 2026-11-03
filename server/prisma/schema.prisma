@@ -87,6 +87,19 @@ model Video {
   sortOrder Int    @default(0)
 }
 
+// Reusable list items for the hardcoded homepage sections (section: 'why' |
+// 'fleet' | 'howTo' | 'gift'). Each row is either icon-based (why/howTo/gift)
+// or image-based (fleet); whichever doesn't apply is left null.
+model SectionItem {
+  id          Int     @id @default(autoincrement())
+  section     String
+  icon        String?
+  image       String?
+  title       String
+  description String  @default("")
+  sortOrder   Int     @default(0)
+}
+
 // Singleton row (id is always 1) holding the "Deal of the week" banner content.
 model DealOfWeek {
   id          Int      @id @default(1)

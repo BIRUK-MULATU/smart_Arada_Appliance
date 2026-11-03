@@ -8,6 +8,7 @@ import type {
   DealOfWeekData,
   FaqItem,
   Review,
+  SectionItem,
   ShopSettingsData,
   Video,
 } from '../types/content.js'
@@ -322,6 +323,59 @@ router.put('/videos/:id', async (req, res) => {
 
 router.delete('/videos/:id', async (req, res) => {
   await prisma.video.delete({ where: { id: Number(req.params.id) } })
+  res.status(204).end()
+})
+
+// ---------- Section items (Why choose us / Our fleet / How to order / Gift from abroad) ----------
+
+router.get('/section-items', async (req, res) => {
+  const section = typeof req.query.section === 'string' ? req.query.section : undefined
+  res.json(
+    await prisma.sectionItem.findMany({
+      where: section ? { section } : {},
+      orderBy: [{ section: 'asc' }, { sortOrder: 'asc' }],
+    }),
+  )
+})
+
+router.post('/section-items', async (req, res) => {
+  const body = req.body as Partial<SectionItem>
+  if (!body.section || !body.title) {
+    res.status(400).json({ error: 'section and title are required' })
+    return
+  }
+  const item = await prisma.sectionItem.create({
+    data: {
+      section: body.section,
+      icon: body.icon || null,
+      image: body.image || null,
+      title: body.title,
+      description: body.description || '',
+      sortOrder: body.sortOrder ?? 0,
+    },
+  })
+  res.status(201).json(item)
+})
+
+router.put('/section-items/:id', async (req, res) => {
+  const id = Number(req.params.id)
+  const body = req.body as Partial<SectionItem>
+  const item = await prisma.sectionItem.update({
+    where: { id },
+    data: omitUndefined({
+      section: body.section,
+      icon: body.icon !== undefined ? body.icon || null : undefined,
+      image: body.image !== undefined ? body.image || null : undefined,
+      title: body.title,
+      description: body.description,
+      sortOrder: body.sortOrder,
+    }),
+  })
+  res.json(item)
+})
+
+router.delete('/section-items/:id', async (req, res) => {
+  await prisma.sectionItem.delete({ where: { id: Number(req.params.id) } })
   res.status(204).end()
 })
 

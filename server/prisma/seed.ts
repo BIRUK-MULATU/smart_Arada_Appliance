@@ -138,7 +138,7 @@ async function main() {
     },
     {
       question: 'Are your products genuine?',
-      answer: 'Yes — every product is 100% genuine with an official [X]-year warranty.',
+      answer: 'Yes — every product is 100% genuine, sourced directly from authorized brand distributors.',
       sortOrder: 2,
     },
     {
@@ -148,7 +148,7 @@ async function main() {
     },
     {
       question: 'What if something breaks?',
-      answer: "Warranty repairs and maintenance are handled by our own technicians — just reach out and we'll sort it.",
+      answer: "Repairs and maintenance are handled by our own technicians — just reach out and we'll sort it.",
       sortOrder: 4,
     },
   ]
@@ -175,6 +175,130 @@ async function main() {
     const existing = await prisma.video.findFirst({ where: { caption: v.caption } })
     if (existing) continue
     await prisma.video.create({ data: { ...v, thumbnail: '/placeholder.svg', sortOrder: i } })
+  }
+
+  const sectionItems = [
+    {
+      section: 'about',
+      icon: 'mapPin',
+      title: "Rooted in Arada's legacy",
+      description:
+        "Named after Addis Ababa's oldest marketplace, Smart Arada carries forward a tradition of trusted trade — just online and at your doorstep.",
+      sortOrder: 0,
+    },
+    {
+      section: 'about',
+      icon: 'shieldCheck',
+      title: 'One team, start to finish',
+      description:
+        "We buy, inspect, deliver, and set up every appliance ourselves — no dropshipping, no third parties, so you always know who's responsible.",
+      sortOrder: 1,
+    },
+    {
+      section: 'about',
+      icon: 'globe',
+      title: 'Here for the diaspora too',
+      description:
+        "Living abroad? We make it simple to pay from anywhere and deliver appliances straight to family back home in Ethiopia.",
+      sortOrder: 2,
+    },
+    {
+      section: 'why',
+      icon: 'messageCircle',
+      title: 'Expert advice',
+      description:
+        "Not sure which fridge fits your kitchen? Message us and we'll help you pick the right size and model.",
+      sortOrder: 0,
+    },
+    {
+      section: 'why',
+      icon: 'truck',
+      title: 'Pay on delivery',
+      description:
+        'Check your appliance when it arrives, then pay by cash, Telebirr or bank transfer. No risk.',
+      sortOrder: 1,
+    },
+    {
+      section: 'why',
+      icon: 'wrench',
+      title: 'After-sales support',
+      description:
+        "Repairs and maintenance handled by our own technicians. One call and we're on it.",
+      sortOrder: 2,
+    },
+    {
+      section: 'fleet',
+      image: '/fleet/delivery-van.jpg',
+      title: 'Delivery van — same-day drop-offs across Addis Ababa.',
+      sortOrder: 0,
+    },
+    {
+      section: 'fleet',
+      image: '/fleet/delivery-truck.jpg',
+      title: 'Delivery truck — built for bulk and heavy appliances.',
+      sortOrder: 1,
+    },
+    {
+      section: 'fleet',
+      image: '/fleet/delivery-motorcycle.jpg',
+      title: 'Delivery motorcycle — fast same-day drop-offs nearby.',
+      sortOrder: 2,
+    },
+    {
+      section: 'fleet',
+      image: '/fleet/delivery-bicycle.jpg',
+      title: 'Delivery bicycle — quiet, quick drop-offs around the neighborhood.',
+      sortOrder: 3,
+    },
+    {
+      section: 'howTo',
+      icon: 'search',
+      title: 'Browse & choose',
+      description: 'Find the appliance you like on our website.',
+      sortOrder: 0,
+    },
+    {
+      section: 'howTo',
+      icon: 'phone',
+      title: 'Message or call us',
+      description: 'Tap "Order now" to reach us on Telegram, WhatsApp or by phone.',
+      sortOrder: 1,
+    },
+    {
+      section: 'howTo',
+      icon: 'truck',
+      title: 'We deliver & install',
+      description: 'We bring it to your home, set it up, and you pay on delivery.',
+      sortOrder: 2,
+    },
+    {
+      section: 'gift',
+      icon: 'globe',
+      title: 'Tell us what to buy',
+      description: "Message us the product and your family's address in Ethiopia.",
+      sortOrder: 0,
+    },
+    {
+      section: 'gift',
+      icon: 'send',
+      title: 'Pay from anywhere',
+      description: 'Pay via Telegram, WhatsApp, or bank transfer — in your currency or ETB.',
+      sortOrder: 1,
+    },
+    {
+      section: 'gift',
+      icon: 'gift',
+      title: 'We deliver the gift',
+      description: 'We deliver, install, and send you a photo so you know they received it.',
+      sortOrder: 2,
+    },
+  ]
+  for (const item of sectionItems) {
+    const existing = await prisma.sectionItem.findFirst({
+      where: { section: item.section, title: item.title },
+    })
+    if (existing) continue
+    await prisma.sectionItem.create({ data: item })
   }
 
   await prisma.dealOfWeek.upsert({

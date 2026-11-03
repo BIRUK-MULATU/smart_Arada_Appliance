@@ -92,6 +92,15 @@ router.get('/videos', async (_req, res) => {
   res.json(videos)
 })
 
+router.get('/section-items', async (req, res) => {
+  const section = typeof req.query.section === 'string' ? req.query.section : undefined
+  const items = await prisma.sectionItem.findMany({
+    where: section ? { section } : {},
+    orderBy: [{ section: 'asc' }, { sortOrder: 'asc' }],
+  })
+  res.json(items)
+})
+
 router.get('/deal', async (_req, res) => {
   const deal = await prisma.dealOfWeek.findUnique({ where: { id: 1 } })
   if (!deal) {
