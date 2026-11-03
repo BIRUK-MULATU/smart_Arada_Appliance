@@ -13,8 +13,10 @@ const shopLinks: { key: TranslationKey; href: string }[] = [
 ]
 
 const helpLinks: { key: TranslationKey; href: string }[] = [
+  { key: 'header.nav.aboutUs', href: '/#about-us' },
   { key: 'header.nav.howToOrder', href: '/#how-to-order' },
-  { key: 'footer.deliveryWarranty', href: '/#delivery-warranty' },
+  { key: 'header.nav.giftFromAbroad', href: '/#gift-from-abroad' },
+  { key: 'footer.deliveryInfo', href: '/#delivery-install' },
   { key: 'header.nav.faq', href: '/#faq' },
   { key: 'header.nav.contact', href: '/#contact' },
 ]
@@ -37,7 +39,7 @@ export default function Footer() {
       <Container className="grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr]">
         <div className="flex flex-col gap-3">
           <div className="flex items-center gap-2 font-extrabold text-white">
-            <img src="/brand/logo-icon.png" alt="" className="h-9 w-9 object-contain" />
+            <img src={settings.logoUrl} alt="" className="h-9 w-9 object-contain" />
             <span className="text-lg">{settings.name}</span>
           </div>
           <p className="max-w-xs text-sm">{settings.tagline}</p>

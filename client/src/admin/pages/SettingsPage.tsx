@@ -8,22 +8,34 @@ function Field({
   value,
   onChange,
   placeholder,
+  multiline,
 }: {
   label: string
   value: string
   onChange: (v: string) => void
   placeholder?: string
+  multiline?: boolean
 }) {
   return (
     <label className="flex flex-col gap-1.5 text-sm">
       <span className="font-medium text-navy">{label}</span>
-      <input
-        type="text"
-        className="rounded-lg border border-border px-3 py-2 text-sm focus:border-navy focus:outline-none"
-        value={value}
-        placeholder={placeholder}
-        onChange={(e) => onChange(e.target.value)}
-      />
+      {multiline ? (
+        <textarea
+          rows={3}
+          className="rounded-lg border border-border px-3 py-2 text-sm focus:border-navy focus:outline-none"
+          value={value}
+          placeholder={placeholder}
+          onChange={(e) => onChange(e.target.value)}
+        />
+      ) : (
+        <input
+          type="text"
+          className="rounded-lg border border-border px-3 py-2 text-sm focus:border-navy focus:outline-none"
+          value={value}
+          placeholder={placeholder}
+          onChange={(e) => onChange(e.target.value)}
+        />
+      )}
     </label>
   )
 }
@@ -160,21 +172,75 @@ export default function SettingsPage() {
           />
         </Section>
 
-        <Section title="Delivery & warranty">
+        <Section title="Delivery">
           <Field
             label="Free delivery threshold (ETB)"
             value={form.freeDeliveryThreshold}
             onChange={(v) => set('freeDeliveryThreshold', v)}
           />
           <Field
-            label="Warranty years"
-            value={form.warrantyYears}
-            onChange={(v) => set('warrantyYears', v)}
-          />
-          <Field
             label="Google Maps embed URL"
             value={form.mapEmbedUrl}
             onChange={(v) => set('mapEmbedUrl', v)}
+          />
+        </Section>
+
+        <Section title="Images">
+          <Field label="Logo URL" value={form.logoUrl} onChange={(v) => set('logoUrl', v)} />
+          <Field
+            label="Hero background video URL"
+            value={form.heroVideoUrl}
+            onChange={(v) => set('heroVideoUrl', v)}
+          />
+          <Field
+            label="Fleet section background photo URL"
+            value={form.fleetWatermarkUrl}
+            onChange={(v) => set('fleetWatermarkUrl', v)}
+          />
+        </Section>
+
+        <Section title="Contact section">
+          <Field
+            label="Eyebrow"
+            value={form.contactEyebrow}
+            onChange={(v) => set('contactEyebrow', v)}
+          />
+          <Field label="Title" value={form.contactTitle} onChange={(v) => set('contactTitle', v)} />
+          <Field
+            label="First photo URL"
+            value={form.contactImageUrl}
+            onChange={(v) => set('contactImageUrl', v)}
+          />
+          <Field
+            label="Second photo URL"
+            value={form.contactSecondImageUrl}
+            onChange={(v) => set('contactSecondImageUrl', v)}
+          />
+          <Field
+            label="Second photo caption"
+            value={form.contactSecondImageCaption}
+            onChange={(v) => set('contactSecondImageCaption', v)}
+          />
+        </Section>
+
+        <Section title="About us">
+          <Field label="Eyebrow" value={form.aboutEyebrow} onChange={(v) => set('aboutEyebrow', v)} />
+          <Field label="Title" value={form.aboutTitle} onChange={(v) => set('aboutTitle', v)} />
+          <Field
+            label="Description"
+            value={form.aboutDesc}
+            onChange={(v) => set('aboutDesc', v)}
+            multiline
+          />
+          <Field
+            label="Photo URL"
+            value={form.aboutImageUrl}
+            onChange={(v) => set('aboutImageUrl', v)}
+          />
+          <Field
+            label="Photo caption"
+            value={form.aboutImageCaption}
+            onChange={(v) => set('aboutImageCaption', v)}
           />
         </Section>
 
@@ -221,6 +287,12 @@ export default function SettingsPage() {
             label="YouTube URL"
             value={form.social.youtube.url}
             onChange={(v) => setSocial('youtube', 'url', v)}
+          />
+          <Field
+            label="Viber chat link"
+            value={form.social.viber.url}
+            onChange={(v) => setSocial('viber', 'url', v)}
+            placeholder="viber://chat?number=%2B251..."
           />
         </Section>
 

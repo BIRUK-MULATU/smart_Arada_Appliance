@@ -1,5 +1,6 @@
 import Container from './ui/Container'
 import Icon from './ui/Icon'
+import TiltCard from './ui/TiltCard'
 import { useShopSettings } from '../hooks/useShopSettings'
 import { telegramOrderUrl, whatsappOrderUrl } from '../lib/order'
 import { useInView } from '../hooks/useInView'
@@ -10,29 +11,20 @@ export default function Contact() {
   const { ref, inView } = useInView<HTMLDivElement>(0.2)
   const { t } = useLanguage()
 
-  const hasRealAddress = Boolean(settings.address) && !settings.address.trim().startsWith('[')
-  const query = `${settings.address}, ${settings.city}`
-  const mapSrc = settings.mapEmbedUrl
-    ? settings.mapEmbedUrl
-    : hasRealAddress
-      ? `https://www.google.com/maps?q=${encodeURIComponent(query)}&output=embed`
-      : null
-  const directionsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`
-
   return (
     <section ref={ref} id="contact" className="bg-bg-light py-16">
       <Container
-        className={`grid gap-10 transition-all duration-700 ease-out lg:grid-cols-2 lg:items-start ${
+        className={`grid gap-10 transition-all duration-700 ease-out lg:grid-cols-2 lg:items-center ${
           inView ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
         }`}
       >
         <div className="flex flex-col gap-6">
           <div>
             <span className="text-sm font-semibold uppercase tracking-wide text-accent">
-              {t('contact.eyebrow')}
+              {settings.contactEyebrow}
             </span>
             <h2 className="mt-3 text-3xl font-extrabold text-navy sm:text-4xl">
-              {t('contact.title')}
+              {settings.contactTitle}
             </h2>
           </div>
 
@@ -41,93 +33,124 @@ export default function Contact() {
               href={telegramOrderUrl(settings, 'your products')}
               target="_blank"
               rel="noreferrer"
-              className="flex items-center justify-between rounded-xl bg-accent px-5 py-4 font-semibold text-white hover:bg-accent-dark"
+              className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 rounded-xl bg-accent px-5 py-4 font-semibold text-white hover:bg-accent-dark"
             >
-              <span className="flex items-center gap-3">
+              <span className="flex shrink-0 items-center gap-3">
                 <Icon name="telegram" className="h-5 w-5" />
                 {t('contact.orderTelegram')}
               </span>
-              <span className="text-white/80">{settings.telegramHandle}</span>
+              <span className="min-w-0 truncate text-white/80">{settings.telegramHandle}</span>
             </a>
 
             <a
               href={whatsappOrderUrl(settings, 'your products')}
               target="_blank"
               rel="noreferrer"
-              className="flex items-center justify-between rounded-xl bg-navy px-5 py-4 font-semibold text-white hover:bg-navy/90"
+              className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 rounded-xl bg-navy px-5 py-4 font-semibold text-white hover:bg-navy/90"
             >
-              <span className="flex items-center gap-3">
+              <span className="flex shrink-0 items-center gap-3">
                 <Icon name="messageCircle" className="h-5 w-5" />
                 {t('contact.whatsapp')}
               </span>
-              <span className="text-white/80">{settings.whatsappNumber}</span>
+              <span className="min-w-0 truncate text-white/80">{settings.whatsappNumber}</span>
+            </a>
+
+            <a
+              href={settings.social.viber.url}
+              target="_blank"
+              rel="noreferrer"
+              className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 rounded-xl bg-[#7360F2] px-5 py-4 font-semibold text-white hover:bg-[#7360F2]/90"
+            >
+              <span className="flex shrink-0 items-center gap-3">
+                <Icon name="viber" className="h-5 w-5" />
+                {t('contact.orderViber')}
+              </span>
+              <span className="min-w-0 truncate text-white/80">{t('contact.messageUs')}</span>
+            </a>
+
+            <a
+              href={settings.social.facebook.url}
+              target="_blank"
+              rel="noreferrer"
+              className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 rounded-xl bg-[#1877F2] px-5 py-4 font-semibold text-white hover:bg-[#1877F2]/90"
+            >
+              <span className="flex shrink-0 items-center gap-3">
+                <Icon name="facebook" className="h-5 w-5" />
+                {t('contact.orderFacebook')}
+              </span>
+              <span className="min-w-0 truncate text-white/80">{t('contact.messageUs')}</span>
+            </a>
+
+            <a
+              href={settings.social.tiktok.url}
+              target="_blank"
+              rel="noreferrer"
+              className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 rounded-xl bg-black px-5 py-4 font-semibold text-white hover:bg-black/90"
+            >
+              <span className="flex shrink-0 items-center gap-3">
+                <Icon name="tiktok" className="h-5 w-5" />
+                {t('contact.orderTiktok')}
+              </span>
+              <span className="min-w-0 truncate text-white/80">{settings.social.tiktok.handle}</span>
             </a>
 
             <a
               href={settings.phoneHref}
-              className="flex items-center justify-between rounded-xl border border-border bg-white px-5 py-4 font-semibold text-navy hover:border-navy"
+              className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 rounded-xl border border-border bg-white px-5 py-4 font-semibold text-navy hover:border-navy"
             >
-              <span className="flex items-center gap-3">
+              <span className="flex shrink-0 items-center gap-3">
                 <Icon name="phone" className="h-5 w-5" />
                 {t('contact.callUs')}
               </span>
-              <span className="text-text-muted">{settings.phone}</span>
+              <span className="min-w-0 truncate text-text-muted">{settings.phone}</span>
             </a>
-          </div>
-
-          <div className="grid gap-6 border-t border-border pt-6 sm:grid-cols-2">
-            <div>
-              <p className="flex items-center gap-2 font-semibold text-navy">
-                <Icon name="mapPin" className="h-4 w-4 text-accent" />
-                {t('contact.showroom')}
-              </p>
-              <p className="mt-2 text-sm text-text-muted">
-                {settings.address}
-                <br />
-                {settings.city}
-              </p>
-            </div>
-            <div>
-              <p className="flex items-center gap-2 font-semibold text-navy">
-                <Icon name="clock" className="h-4 w-4 text-accent" />
-                {t('contact.hours')}
-              </p>
-              <p className="mt-2 text-sm text-text-muted">
-                {settings.hours.weekdays}
-                <br />
-                {settings.hours.sunday}
-              </p>
-            </div>
           </div>
         </div>
 
-        <div className="relative min-h-80 overflow-hidden rounded-2xl border border-border bg-white">
-          {mapSrc ? (
-            <>
-              <iframe
-                title="Showroom location"
-                src={mapSrc}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                className="absolute inset-0 h-full w-full border-0"
-              />
-              <a
-                href={directionsUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="absolute bottom-4 left-4 flex items-center gap-2 rounded-lg bg-white px-4 py-2.5 text-sm font-semibold text-navy shadow-lg hover:bg-bg-light"
-              >
-                <Icon name="mapPin" className="h-4 w-4 text-accent" />
-                {t('contact.getDirections')}
-              </a>
-            </>
-          ) : (
-            <div className="flex h-full min-h-80 items-center justify-center bg-[repeating-linear-gradient(135deg,#E6ECF0_0,#E6ECF0_2px,transparent_2px,transparent_14px)]">
-              <span className="rounded-lg bg-white px-4 py-2 text-sm text-text-muted shadow-sm">
-                {t('contact.noMap')}
-              </span>
-            </div>
-          )}
+        <div className="grid gap-8 [perspective:1600px] sm:grid-cols-2 sm:gap-6">
+          <div
+            className={`group relative transition-all duration-700 ease-out ${
+              inView ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+            }`}
+          >
+            <span className="pointer-events-none absolute -inset-3 -z-10 rounded-[1.75rem] bg-accent/25 blur-2xl animate-pulse motion-reduce:animate-none [animation-duration:4s]" />
+            <TiltCard className="rounded-2xl">
+              <div className="relative min-h-64 overflow-hidden rounded-2xl border border-border shadow-lg transition-shadow duration-500 group-hover:shadow-2xl sm:min-h-80">
+                <img
+                  src={settings.contactImageUrl}
+                  alt="Addis Ababa city skyline"
+                  className="h-full min-h-64 w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110 sm:min-h-80"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/10 to-transparent" />
+                <p className="absolute bottom-4 left-4 flex items-center gap-2 text-sm font-semibold text-white">
+                  <Icon name="mapPin" className="h-4 w-4 text-accent" />
+                  {settings.city}
+                </p>
+              </div>
+            </TiltCard>
+          </div>
+
+          <div
+            className={`group relative transition-all duration-700 ease-out ${
+              inView ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+            }`}
+            style={{ transitionDelay: inView ? '150ms' : '0ms' }}
+          >
+            <span className="pointer-events-none absolute -inset-3 -z-10 rounded-[1.75rem] bg-navy/20 blur-2xl animate-pulse motion-reduce:animate-none [animation-duration:4s] [animation-delay:1.3s]" />
+            <TiltCard className="rounded-2xl">
+              <div className="relative min-h-64 overflow-hidden rounded-2xl border border-border shadow-lg transition-shadow duration-500 group-hover:shadow-2xl sm:min-h-80">
+                <img
+                  src={settings.contactSecondImageUrl}
+                  alt="Historical black and white photo of Arada Market in 1934"
+                  className="h-full min-h-64 w-full object-cover grayscale transition-all duration-700 ease-out group-hover:scale-110 group-hover:grayscale-0 sm:min-h-80"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/10 to-transparent" />
+                <p className="absolute bottom-4 left-4 text-sm font-semibold uppercase tracking-wide text-white">
+                  {settings.contactSecondImageCaption}
+                </p>
+              </div>
+            </TiltCard>
+          </div>
         </div>
       </Container>
     </section>

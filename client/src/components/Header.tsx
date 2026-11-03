@@ -12,8 +12,10 @@ import type { TranslationKey } from '../i18n/translations'
 const navLinks: { key: TranslationKey; href: string }[] = [
   { key: 'header.nav.products', href: '/#products' },
   { key: 'header.nav.deals', href: '/#deals' },
+  { key: 'header.nav.aboutUs', href: '/#about-us' },
   { key: 'header.nav.brands', href: '/#brands' },
   { key: 'header.nav.howToOrder', href: '/#how-to-order' },
+  { key: 'header.nav.giftFromAbroad', href: '/#gift-from-abroad' },
   { key: 'header.nav.faq', href: '/#faq' },
   { key: 'header.nav.contact', href: '/#contact' },
 ]
@@ -38,7 +40,7 @@ export default function Header() {
     <header className="sticky top-0 z-40 border-b border-border bg-white">
       <Container className="flex h-16 items-center justify-between gap-4">
         <a href="/" className="flex items-center gap-2 font-extrabold text-navy">
-          <img src="/brand/logo-icon.png" alt="" className="h-9 w-9 object-contain" />
+          <img src={settings.logoUrl} alt="" className="h-9 w-9 object-contain" />
           <span className="text-lg">{settings.name}</span>
         </a>
 
@@ -47,7 +49,7 @@ export default function Header() {
             <a
               key={link.href}
               href={link.href}
-              className="text-sm font-medium text-text-secondary hover:text-navy"
+              className="relative text-sm font-medium text-text-secondary transition-colors duration-200 after:absolute after:inset-x-0 after:-bottom-1 after:h-0.5 after:scale-x-0 after:bg-accent after:transition-transform after:duration-200 after:content-[''] hover:text-navy hover:after:scale-x-100"
             >
               {t(link.key)}
             </a>
@@ -65,7 +67,7 @@ export default function Header() {
               type={searchOpen ? 'submit' : 'button'}
               onClick={() => !searchOpen && setSearchOpen(true)}
               aria-label={t('header.searchAria')}
-              className="flex h-10 w-10 shrink-0 items-center justify-center text-navy hover:text-accent"
+              className="flex h-10 w-10 shrink-0 items-center justify-center text-navy transition-colors duration-200 hover:text-accent"
             >
               <Icon name="search" className="h-4 w-4" />
             </button>
@@ -88,7 +90,7 @@ export default function Header() {
 
         <button
           type="button"
-          className="flex h-10 w-10 items-center justify-center rounded-lg text-navy lg:hidden"
+          className="flex h-10 w-10 items-center justify-center rounded-lg text-navy transition-colors duration-200 hover:bg-bg-light lg:hidden"
           aria-label={open ? 'Close menu' : 'Open menu'}
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
@@ -118,7 +120,7 @@ export default function Header() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="rounded-lg px-2 py-2 text-sm font-medium text-text-secondary hover:bg-bg-light hover:text-navy"
+                className="rounded-lg px-2 py-2 text-sm font-medium text-text-secondary transition-colors duration-200 hover:bg-bg-light hover:text-navy"
               >
                 {t(link.key)}
               </a>

@@ -1,3 +1,5 @@
+import type { CSSProperties } from 'react'
+
 export type IconName =
   | 'play'
   | 'phone'
@@ -25,6 +27,10 @@ export type IconName =
   | 'facebook'
   | 'instagram'
   | 'youtube'
+  | 'globe'
+  | 'gift'
+  | 'quote'
+  | 'viber'
 
 const strokeIcons: Partial<Record<IconName, string>> = {
   phone:
@@ -48,6 +54,10 @@ const strokeIcons: Partial<Record<IconName, string>> = {
     'M21 11.5a8.5 8.5 0 0 1-8.5 8.5 8.4 8.4 0 0 1-4-1l-4.5 1 1.1-4.3A8.5 8.5 0 1 1 21 11.5Z',
   plus: 'M12 5v14M5 12h14',
   minus: 'M5 12h14',
+  globe:
+    'M12 2a10 10 0 1 1 0 20 10 10 0 1 1 0-20z M2 12h20 M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z',
+  gift:
+    'M20 12v10H4V12 M2 7h20v5H2z M12 22V7 M12 7H7.5a2.5 2.5 0 1 1 0-5C11 2 12 7 12 7z M12 7h4.5a2.5 2.5 0 1 0 0-5C13 2 12 7 12 7z',
 }
 
 const filledIcons: Partial<Record<IconName, string>> = {
@@ -63,21 +73,26 @@ const filledIcons: Partial<Record<IconName, string>> = {
     'M8 2h8a6 6 0 0 1 6 6v8a6 6 0 0 1-6 6H8a6 6 0 0 1-6-6V8a6 6 0 0 1 6-6Zm0 2a4 4 0 0 0-4 4v8a4 4 0 0 0 4 4h8a4 4 0 0 0 4-4V8a4 4 0 0 0-4-4Zm4 3.5a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9Zm0 2a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5ZM17 6.3a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z',
   youtube:
     'M22 12a28 28 0 0 0-.4-5.2 2.8 2.8 0 0 0-2-2C17.9 4.3 12 4.3 12 4.3s-5.9 0-7.6.5a2.8 2.8 0 0 0-2 2A28 28 0 0 0 2 12a28 28 0 0 0 .4 5.2 2.8 2.8 0 0 0 2 2c1.7.5 7.6.5 7.6.5s5.9 0 7.6-.5a2.8 2.8 0 0 0 2-2A28 28 0 0 0 22 12Zm-12.3 3.3V8.7l5.8 3.3Z',
+  quote: 'M6 17h3l2-4V7H5v6h3l-2 4ZM14 17h3l2-4V7h-6v6h3l-2 4Z',
+  viber:
+    'M12 3C6.5 3 2 6.8 2 11.5c0 2.7 1.5 5.1 3.8 6.7-.1 1-.4 2.5-1.1 3.8 1.5-.3 3.3-1 4.6-1.9A12 12 0 0 0 12 20c5.5 0 10-3.8 10-8.5S17.5 3 12 3Z',
 }
 
 export default function Icon({
   name,
   className = 'h-5 w-5',
+  style,
 }: {
   name: IconName
   className?: string
+  style?: CSSProperties
 }) {
   const strokePath = strokeIcons[name]
   const filledPath = filledIcons[name]
 
   if (filledPath) {
     return (
-      <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="currentColor" className={className} style={style} aria-hidden="true">
         <path d={filledPath} />
       </svg>
     )
@@ -92,6 +107,7 @@ export default function Icon({
       strokeLinecap="round"
       strokeLinejoin="round"
       className={className}
+      style={style}
       aria-hidden="true"
     >
       <path d={strokePath} />

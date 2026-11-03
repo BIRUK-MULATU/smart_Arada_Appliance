@@ -1,30 +1,23 @@
 import Container from './ui/Container'
 import Icon from './ui/Icon'
-import { useShopSettings } from '../hooks/useShopSettings'
 import { useInView } from '../hooks/useInView'
 import { useLanguage } from '../context/LanguageContext'
 import type { IconName } from './ui/Icon'
 
 export default function TrustStrip() {
-  const { settings } = useShopSettings()
   const { ref, inView } = useInView<HTMLDivElement>(0.2)
   const { t } = useLanguage()
 
   const items: { icon: IconName; title: string; description: string }[] = [
     { icon: 'shieldCheck', title: t('trust.genuineTitle'), description: t('trust.genuineDesc') },
-    {
-      icon: 'calendar',
-      title: t('trust.warrantyTitle', { years: settings.warrantyYears }),
-      description: t('trust.warrantyDesc'),
-    },
     { icon: 'truck', title: t('trust.deliveryTitle'), description: t('trust.deliveryDesc') },
     { icon: 'wrench', title: t('trust.installTitle'), description: t('trust.installDesc') },
   ]
 
   return (
-    <section ref={ref} id="delivery-warranty" className="border-b border-border bg-bg-light">
+    <section ref={ref} id="delivery-install" className="border-b border-border bg-bg-light">
       <Container
-        className={`grid grid-cols-2 gap-4 py-8 transition-all duration-700 ease-out sm:grid-cols-4 ${
+        className={`grid grid-cols-1 gap-4 py-8 transition-all duration-700 ease-out sm:grid-cols-3 ${
           inView ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
         }`}
       >

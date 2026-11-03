@@ -50,7 +50,7 @@ export default function Hero() {
     <section ref={ref} id="top" className="relative isolate flex min-h-screen items-center overflow-hidden bg-navy">
       <video
         ref={videoRef}
-        src="/videos/appliance-showcase.mp4"
+        src={settings.heroVideoUrl}
         poster="/videos/appliance-showcase-poster.jpg"
         autoPlay
         muted

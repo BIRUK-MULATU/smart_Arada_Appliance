@@ -9,6 +9,7 @@ const navItems = [
   { to: '/admin/faq', label: 'FAQ' },
   { to: '/admin/brands', label: 'Brands' },
   { to: '/admin/videos', label: 'Videos' },
+  { to: '/admin/section-items', label: 'Page sections' },
   { to: '/admin/deal', label: 'Deal of the week' },
   { to: '/admin/settings', label: 'Shop settings' },
 ]

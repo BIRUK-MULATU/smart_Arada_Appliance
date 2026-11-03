@@ -64,7 +64,7 @@ export default function ProductDetailPage() {
             </div>
 
             {gallery.length > 1 && (
-              <div className="flex gap-3">
+              <div className="flex gap-3 overflow-x-auto pb-1">
                 {gallery.map((src, i) => (
                   <button
                     key={i}

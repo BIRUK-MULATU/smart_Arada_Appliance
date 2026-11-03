@@ -10,14 +10,16 @@ const dict = {
   'header.nav.products': { en: 'Products', am: 'ምርቶች' },
   'header.nav.deals': { en: 'Deals', am: 'ቅናሾች' },
   'header.nav.brands': { en: 'Brands', am: 'ብራንዶች' },
+  'header.nav.aboutUs': { en: 'About us', am: 'ስለ እኛ' },
   'header.nav.howToOrder': { en: 'How to order', am: 'እንዴት ማዘዝ እንደሚቻል' },
+  'header.nav.giftFromAbroad': { en: 'Gift from abroad', am: 'ከውጭ ስጦታ' },
   'header.nav.faq': { en: 'FAQ', am: 'ተደጋጋሚ ጥያቄዎች' },
   'header.nav.contact': { en: 'Contact', am: 'አግኙን' },
   'header.orderTelegram': { en: 'Order on Telegram', am: 'በቴሌግራም ይዘዙ' },
   'header.searchPlaceholder': { en: 'Search products…', am: 'ምርቶችን ይፈልጉ…' },
   'header.searchAria': { en: 'Search products', am: 'ምርቶችን ይፈልጉ' },
 
-  'hero.badge': { en: 'Genuine products · Official warranty', am: 'ኦሪጅናል ምርቶች · ኦፊሴላዊ ዋስትና' },
+  'hero.badge': { en: 'Genuine products', am: 'ኦሪጅናል ምርቶች' },
   'hero.title': {
     en: 'Quality home appliances, delivered to your door.',
     am: 'ጥራት ያላቸው የቤት እቃዎች፣ እስከ በርዎ ድረስ ይደርሳሉ።',
@@ -40,8 +42,6 @@ const dict = {
 
   'trust.genuineTitle': { en: '100% genuine', am: '100% ኦሪጅናል' },
   'trust.genuineDesc': { en: 'Original brand products', am: 'ኦሪጅናል የብራንድ ምርቶች' },
-  'trust.warrantyTitle': { en: '{{years}}-year warranty', am: '{{years}}-ዓመት ዋስትና' },
-  'trust.warrantyDesc': { en: 'On every appliance', am: 'በሁሉም እቃ ላይ' },
   'trust.deliveryTitle': { en: 'Fast delivery', am: 'ፈጣን ማድረስ' },
   'trust.deliveryDesc': { en: 'Same or next day in Addis', am: 'በአዲስ አበባ በተመሳሳይ ወይም በሚቀጥለው ቀን' },
   'trust.installTitle': { en: 'Free installation', am: 'ነጻ ገጠማ' },
@@ -82,58 +82,33 @@ const dict = {
     en: 'We handle everything from choosing the right appliance to delivery, installation and after-sales service.',
     am: 'ትክክለኛውን እቃ ከመምረጥ ጀምሮ እስከ ማድረስ፣ ገጠማ እና ድህረ ሽያጭ አገልግሎት ድረስ ሁሉንም እናከናውናለን።',
   },
-  'why.reason1Title': { en: 'Expert advice', am: 'የባለሙያ ምክር' },
-  'why.reason1Desc': {
-    en: "Not sure which fridge fits your kitchen? Message us and we'll help you pick the right size and model.",
-    am: 'የትኛው ፍሪጅ ለኩሽናዎ እንደሚመጥን እርግጠኛ አይደሉም? መልዕክት ይላኩልን እና ትክክለኛውን መጠንና ሞዴል እንድመርጡ እንረዳዎታለን።',
-  },
-  'why.reason2Title': { en: 'Pay on delivery', am: 'ሲደርስዎት ይክፈሉ' },
-  'why.reason2Desc': {
-    en: 'Check your appliance when it arrives, then pay by cash, Telebirr or bank transfer. No risk.',
-    am: 'እቃዎ ሲደርስ ይመርምሩ፣ ከዚያም በጥሬ ገንዘብ፣ በቴሌብር ወይም በባንክ ዝውውር ይክፈሉ። ምንም ስጋት የለም።',
-  },
-  'why.reason3Title': { en: 'After-sales support', am: 'ድህረ ሽያጭ ድጋፍ' },
-  'why.reason3Desc': {
-    en: "Warranty repairs and maintenance handled by our own technicians. One call and we're on it.",
-    am: 'የዋስትና ጥገናና ጥበቃ በራሳችን ቴክኒሺያኖች ይከናወናል። አንድ ጥሪ ብቻ እና ወዲያውኑ እንደርሳለን።',
-  },
-
   'fleet.eyebrow': { en: 'Our fleet', am: 'የመኪና ስብስባችን' },
   'fleet.title': { en: 'We deliver it ourselves', am: 'በራሳችን እናደርሳለን' },
   'fleet.desc': {
     en: 'No third-party couriers. Our own branded vehicles bring every order straight to your door, on time.',
     am: 'ምንም ሶስተኛ ወገን አላኪ የለም። የራሳችን ምልክት ያላቸው ተሽከርካሪዎች እያንዳንዱን ትዕዛዝ በሰዓቱ እስከ በርዎ ያደርሳሉ።',
   },
-  'fleet.van': {
-    en: 'Delivery van — same-day drop-offs across Addis Ababa.',
-    am: 'ማድረሻ ቫን — በአዲስ አበባ ውስጥ በተመሳሳይ ቀን ማድረስ።',
-  },
-  'fleet.truck': {
-    en: 'Delivery truck — built for bulk and heavy appliances.',
-    am: 'ማድረሻ ትራክ — ለብዙ እና ከባድ እቃዎች የተዘጋጀ።',
-  },
-  'fleet.motorcycle': {
-    en: 'Delivery motorcycle — fast same-day drop-offs nearby.',
-    am: 'ማድረሻ ሞተር ሳይክል — በአቅራቢያ ፈጣን ተመሳሳይ ቀን ማድረስ።',
-  },
-  'fleet.bicycle': {
-    en: 'Delivery bicycle — quiet, quick drop-offs around the neighborhood.',
-    am: 'ማድረሻ ብስክሌት — በአካባቢው ጸጥ ያለ እና ፈጣን ማድረስ።',
-  },
 
   'howTo.eyebrow': { en: 'How to order', am: 'እንዴት ማዘዝ እንደሚቻል' },
   'howTo.title': { en: 'Three simple steps', am: 'ሶስት ቀላል ደረጃዎች' },
-  'howTo.step1Title': { en: 'Browse & choose', am: 'ይመልከቱና ይምረጡ' },
-  'howTo.step1Desc': { en: 'Find the appliance you like on our website.', am: 'በድረ-ገጻችን ላይ የሚወዱትን እቃ ያግኙ።' },
-  'howTo.step2Title': { en: 'Message or call us', am: 'መልዕክት ይላኩልን ወይም ይደውሉልን' },
-  'howTo.step2Desc': {
-    en: 'Tap "Order now" to reach us on Telegram, WhatsApp or by phone.',
-    am: 'ለማግኘት "አሁን ይዘዙ" የሚለውን ይጫኑ፣ በቴሌግራም፣ በዋትስአፕ ወይም በስልክ።',
+
+  'giftAbroad.eyebrow': { en: 'Gift from abroad', am: 'ከውጭ ሀገር ስጦታ' },
+  'giftAbroad.title': {
+    en: 'Sending a gift to family in Ethiopia?',
+    am: 'ለቤተሰብዎ ኢትዮጵያ ውስጥ ስጦታ መላክ ይፈልጋሉ?',
   },
-  'howTo.step3Title': { en: 'We deliver & install', am: 'እናደርሳለን እንገጥማለን' },
-  'howTo.step3Desc': {
-    en: 'We bring it to your home, set it up, and you pay on delivery.',
-    am: 'ወደ ቤትዎ እናመጣዋለን፣ እንገጥመዋለን፣ እናም ሲደርስዎት ይከፍላሉ።',
+  'giftAbroad.desc': {
+    en: "Living abroad? Pay us from anywhere in the world and we'll buy, deliver, and set up the appliance for your loved ones in Ethiopia — just like you were here yourself.",
+    am: 'በውጭ ሀገር ይኖራሉ? ከየትኛውም ቦታ ይክፈሉን፤ እቃውን እንገዛለን፣ ለቤተሰብዎ እናደርሳለን እንገጥማለን — እርስዎ እዚሁ እንደነበሩ ያህል።',
+  },
+  'giftAbroad.cta': { en: 'Arrange a gift delivery', am: 'ስጦታ ማድረስ ያዘጋጁ' },
+  'giftAbroad.photo1Caption': {
+    en: 'Nothing stops the delivery — we get it there',
+    am: 'ማንም ነገር አያቆመንም — እናደርሰዋለን',
+  },
+  'giftAbroad.photo2Caption': {
+    en: 'Delivered straight to their door, with a smile',
+    am: 'በቀጥታ ወደ በራቸው ይደርሳል፣ በፈገግታ',
   },
 
   'brands.eyebrow': { en: 'Our partners', am: 'አጋሮቻችን' },
@@ -154,18 +129,13 @@ const dict = {
     am: 'የሚፈልጉትን ማግኘት አልቻሉም? በቴሌግራም መልዕክት ይላኩልን እና በፍጥነት እንመልሳለን።',
   },
 
-  'contact.eyebrow': { en: 'Contact & visit', am: 'ያግኙን እና ይጎብኙን' },
-  'contact.title': { en: 'Ready to order? Reach us anytime.', am: 'ለማዘዝ ዝግጁ ነዎት? በማንኛውም ጊዜ ያግኙን።' },
   'contact.orderTelegram': { en: 'Order on Telegram', am: 'በቴሌግራም ይዘዙ' },
-  'contact.whatsapp': { en: 'WhatsApp', am: 'ዋትስአፕ' },
+  'contact.whatsapp': { en: 'Order on WhatsApp', am: 'በዋትስአፕ ይዘዙ' },
+  'contact.orderViber': { en: 'Order on Viber', am: 'በቫይበር ይዘዙ' },
+  'contact.orderFacebook': { en: 'Order on Facebook', am: 'በፌስቡክ ይዘዙ' },
+  'contact.orderTiktok': { en: 'Order on TikTok', am: 'በቲክቶክ ይዘዙ' },
+  'contact.messageUs': { en: 'Message us', am: 'መልዕክት ይላኩልን' },
   'contact.callUs': { en: 'Call us', am: 'ይደውሉልን' },
-  'contact.showroom': { en: 'Showroom', am: 'መደብር' },
-  'contact.hours': { en: 'Opening hours', am: 'የመክፈቻ ሰዓት' },
-  'contact.getDirections': { en: 'Get directions', am: 'አቅጣጫ ያግኙ' },
-  'contact.noMap': {
-    en: 'Add your showroom address in the admin to show the map here',
-    am: 'ካርታውን ለማሳየት በአስተዳዳሪ ገጽ የመደብርዎን አድራሻ ይጨምሩ',
-  },
 
   'telegramCta.title': { en: 'Never miss a deal', am: 'ምንም ቅናሽ አያመልጥዎት' },
   'telegramCta.desc': {
@@ -181,7 +151,7 @@ const dict = {
   'footer.washingMachines': { en: 'Washing machines', am: 'ማጠቢያ ማሽኖች' },
   'footer.tvs': { en: 'TVs', am: 'ቴሌቪዥኖች' },
   'footer.kitchen': { en: 'Kitchen', am: 'የወጥ ቤት እቃዎች' },
-  'footer.deliveryWarranty': { en: 'Delivery & warranty', am: 'ማድረስና ዋስትና' },
+  'footer.deliveryInfo': { en: 'Delivery & installation', am: 'ማድረስና መግጠም' },
   'footer.rights': { en: 'All rights reserved.', am: 'መብቱ በህግ የተጠበቀ ነው።' },
   'footer.location': { en: 'Addis Ababa, Ethiopia', am: 'አዲስ አበባ፣ ኢትዮጵያ' },
 

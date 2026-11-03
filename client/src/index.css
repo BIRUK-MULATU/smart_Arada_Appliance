@@ -69,10 +69,82 @@ body {
   }
 }
 
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float-y {
+  animation: float-y 4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-float-y {
+    animation: none;
+  }
+}
+
+@keyframes fly-across {
+  0% {
+    left: -6%;
+    opacity: 0;
+    transform: translateY(0) rotate(0deg);
+  }
+  12% {
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-14px) rotate(6deg);
+  }
+  88% {
+    opacity: 1;
+  }
+  100% {
+    left: 106%;
+    opacity: 0;
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+.animate-fly-across {
+  animation: fly-across 5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fly-across {
+    animation: none;
+  }
+}
+
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(-10deg);
+  }
+  50% {
+    transform: rotate(10deg);
+  }
+}
+
+.animate-wiggle {
+  animation: wiggle 1.8s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-wiggle {
+    animation: none;
+  }
+}
+
 .fleet-floor-grid {
   background-image:
-    repeating-linear-gradient(90deg, rgba(1, 60, 89, 0.18) 0, rgba(1, 60, 89, 0.18) 1px, transparent 1px, transparent 48px),
-    repeating-linear-gradient(0deg, rgba(1, 60, 89, 0.18) 0, rgba(1, 60, 89, 0.18) 1px, transparent 1px, transparent 48px);
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.18) 0, rgba(255, 255, 255, 0.18) 1px, transparent 1px, transparent 48px),
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.18) 0, rgba(255, 255, 255, 0.18) 1px, transparent 1px, transparent 48px);
   mask-image: radial-gradient(ellipse 60% 60% at 50% 50%, black 0%, transparent 75%);
   -webkit-mask-image: radial-gradient(ellipse 60% 60% at 50% 50%, black 0%, transparent 75%);
 }

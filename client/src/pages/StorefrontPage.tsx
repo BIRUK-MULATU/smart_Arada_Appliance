@@ -5,9 +5,11 @@ import CategoryGrid from '../components/CategoryGrid'
 import FeaturedProducts from '../components/FeaturedProducts'
 import SocialVideos from '../components/SocialVideos'
 import DealOfWeek from '../components/DealOfWeek'
+import AboutUs from '../components/AboutUs'
 import WhyChooseUs from '../components/WhyChooseUs'
 import OurFleet from '../components/OurFleet'
 import HowToOrder from '../components/HowToOrder'
+import GiftFromAbroad from '../components/GiftFromAbroad'
 import Brands from '../components/Brands'
 import Reviews from '../components/Reviews'
 import Faq from '../components/Faq'
@@ -23,9 +25,11 @@ export default function StorefrontPage() {
       <FeaturedProducts />
       <SocialVideos />
       <DealOfWeek />
+      <AboutUs />
       <WhyChooseUs />
       <OurFleet />
       <HowToOrder />
+      <GiftFromAbroad />
       <Brands />
       <Reviews />
       <Faq />

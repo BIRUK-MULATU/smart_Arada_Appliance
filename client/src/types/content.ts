@@ -31,6 +31,16 @@ export type Video = {
   sortOrder: number
 }
 
+export type SectionItem = {
+  id: number
+  section: string
+  icon: string | null
+  image: string | null
+  title: string
+  description: string
+  sortOrder: number
+}
+
 export type DealOfWeekData = {
   title: string
   description: string
@@ -56,14 +66,27 @@ export type ShopSettingsData = {
     short: string
   }
   freeDeliveryThreshold: string
-  warrantyYears: string
   mapEmbedUrl: string
+  logoUrl: string
+  heroVideoUrl: string
+  contactImageUrl: string
+  fleetWatermarkUrl: string
+  contactEyebrow: string
+  contactTitle: string
+  contactSecondImageUrl: string
+  contactSecondImageCaption: string
+  aboutEyebrow: string
+  aboutTitle: string
+  aboutDesc: string
+  aboutImageUrl: string
+  aboutImageCaption: string
   social: {
     tiktok: { label: string; url: string; handle: string }
     telegram: { label: string; url: string }
     facebook: { label: string; url: string }
     instagram: { label: string; url: string }
     youtube: { label: string; url: string }
+    viber: { label: string; url: string }
   }
   stats: {
     productsInStock: string
