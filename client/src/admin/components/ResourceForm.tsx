@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import type { FormEvent } from 'react'
 import type { FieldConfig, FormValues } from './fieldTypes'
+import ImageUploadField from './ImageUploadField'
 
 export default function ResourceForm({
   title,
@@ -56,6 +57,14 @@ export default function ResourceForm({
                   placeholder={field.placeholder}
                   value={String(values[field.name] ?? '')}
                   onChange={(e) => setField(field.name, e.target.value)}
+                />
+              )}
+
+              {field.type === 'image' && (
+                <ImageUploadField
+                  value={String(values[field.name] ?? '')}
+                  onChange={(url) => setField(field.name, url)}
+                  placeholder={field.placeholder}
                 />
               )}
 

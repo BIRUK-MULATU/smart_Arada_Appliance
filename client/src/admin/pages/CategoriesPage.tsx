@@ -17,7 +17,7 @@ const fields: FieldConfig[] = [
     required: true,
     placeholder: 'refrigerators',
   },
-  { name: 'image', label: 'Image URL', type: 'text', placeholder: '/placeholder.svg' },
+  { name: 'image', label: 'Image URL', type: 'image', placeholder: '/placeholder.svg' },
   { name: 'sortOrder', label: 'Sort order', type: 'number' },
 ]
 

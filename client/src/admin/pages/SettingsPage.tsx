@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import type { FormEvent, ReactNode } from 'react'
 import { adminApi } from '../lib/adminApi'
+import ImageUploadField from '../components/ImageUploadField'
 import type { ShopSettingsData } from '../../types/content'
 
 function Field({
@@ -9,17 +10,21 @@ function Field({
   onChange,
   placeholder,
   multiline,
+  image,
 }: {
   label: string
   value: string
   onChange: (v: string) => void
   placeholder?: string
   multiline?: boolean
+  image?: boolean
 }) {
   return (
     <label className="flex flex-col gap-1.5 text-sm">
       <span className="font-medium text-navy">{label}</span>
-      {multiline ? (
+      {image ? (
+        <ImageUploadField value={value} onChange={onChange} placeholder={placeholder} />
+      ) : multiline ? (
         <textarea
           rows={3}
           className="rounded-lg border border-border px-3 py-2 text-sm focus:border-navy focus:outline-none"
@@ -186,16 +191,17 @@ export default function SettingsPage() {
         </Section>
 
         <Section title="Images">
-          <Field label="Logo URL" value={form.logoUrl} onChange={(v) => set('logoUrl', v)} />
+          <Field label="Logo" value={form.logoUrl} onChange={(v) => set('logoUrl', v)} image />
           <Field
             label="Hero background video URL"
             value={form.heroVideoUrl}
             onChange={(v) => set('heroVideoUrl', v)}
           />
           <Field
-            label="Fleet section background photo URL"
+            label="Fleet section background photo"
             value={form.fleetWatermarkUrl}
             onChange={(v) => set('fleetWatermarkUrl', v)}
+            image
           />
         </Section>
 
@@ -207,14 +213,16 @@ export default function SettingsPage() {
           />
           <Field label="Title" value={form.contactTitle} onChange={(v) => set('contactTitle', v)} />
           <Field
-            label="First photo URL"
+            label="First photo"
             value={form.contactImageUrl}
             onChange={(v) => set('contactImageUrl', v)}
+            image
           />
           <Field
-            label="Second photo URL"
+            label="Second photo"
             value={form.contactSecondImageUrl}
             onChange={(v) => set('contactSecondImageUrl', v)}
+            image
           />
           <Field
             label="Second photo caption"
@@ -233,9 +241,10 @@ export default function SettingsPage() {
             multiline
           />
           <Field
-            label="Photo URL"
+            label="Photo"
             value={form.aboutImageUrl}
             onChange={(v) => set('aboutImageUrl', v)}
+            image
           />
           <Field
             label="Photo caption"

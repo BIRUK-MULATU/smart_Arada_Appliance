@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import type { FormEvent } from 'react'
 import { adminApi } from '../lib/adminApi'
+import ImageUploadField from '../components/ImageUploadField'
 import type { DealOfWeekData } from '../../types/content'
 
 function toLocalInputValue(iso: string) {
@@ -90,13 +91,11 @@ export default function DealPage() {
         </label>
 
         <label className="flex flex-col gap-1.5 text-sm">
-          <span className="font-medium text-navy">Photo URL</span>
-          <input
-            type="text"
-            placeholder="/fleet/delivery-van.jpg"
-            className="rounded-lg border border-border px-3 py-2 text-sm focus:border-navy focus:outline-none"
+          <span className="font-medium text-navy">Photo</span>
+          <ImageUploadField
             value={form.image}
-            onChange={(e) => setForm({ ...form, image: e.target.value })}
+            onChange={(url) => setForm({ ...form, image: url })}
+            placeholder="/fleet/delivery-van.jpg"
           />
           <span className="text-xs text-text-muted">Shown beside the deal banner on the homepage.</span>
         </label>

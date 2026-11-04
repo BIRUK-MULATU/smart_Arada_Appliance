@@ -53,7 +53,7 @@ const fields: FieldConfig[] = [
   {
     name: 'image',
     label: 'Image URL (used by "We deliver it ourselves" instead of an icon)',
-    type: 'text',
+    type: 'image',
     placeholder: '/fleet/delivery-van.jpg',
   },
   { name: 'title', label: 'Title', type: 'text', required: true },

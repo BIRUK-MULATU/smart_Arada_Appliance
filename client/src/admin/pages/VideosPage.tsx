@@ -30,7 +30,7 @@ const fields: FieldConfig[] = [
     required: true,
     placeholder: 'https://tiktok.com/@your_shop/video/...',
   },
-  { name: 'thumbnail', label: 'Thumbnail image URL', type: 'text', placeholder: '/placeholder.svg' },
+  { name: 'thumbnail', label: 'Thumbnail image URL', type: 'image', placeholder: '/placeholder.svg' },
   { name: 'sortOrder', label: 'Sort order', type: 'number' },
 ]
 
