@@ -10,7 +10,6 @@
     },
     "server": {
       "root": "server",
-      "framework": "express",
       "entrypoint": "api/index.ts"
     }
   },
