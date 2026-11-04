@@ -1,4 +1,4 @@
-export type FieldType = 'text' | 'textarea' | 'number' | 'checkbox' | 'select' | 'image'
+export type FieldType = 'text' | 'textarea' | 'number' | 'checkbox' | 'select' | 'image' | 'video'
 
 export type FieldOption = { label: string; value: string | number }
 

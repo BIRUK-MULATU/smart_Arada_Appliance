@@ -6,6 +6,7 @@ const knownPlatforms: Record<string, IconName> = {
   facebook: 'facebook',
   instagram: 'instagram',
   youtube: 'youtube',
+  upload: 'play',
 }
 
 const platformLabels: Record<string, string> = {
@@ -14,6 +15,7 @@ const platformLabels: Record<string, string> = {
   facebook: 'Facebook',
   instagram: 'Instagram',
   youtube: 'YouTube',
+  upload: 'Video',
 }
 
 export function platformIcon(platform: string): IconName {

@@ -444,7 +444,7 @@ router.put('/settings', async (req, res) => {
   res.json(parseSettings(row.data))
 })
 
-// ---------- Product image uploads ----------
+// ---------- Admin media uploads (product/content images and videos) ----------
 
 router.post('/upload', async (req, res) => {
   const body = req.body as HandleUploadBody
@@ -453,9 +453,17 @@ router.post('/upload', async (req, res) => {
       body,
       request: req,
       onBeforeGenerateToken: async () => ({
-        allowedContentTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/gif'],
+        allowedContentTypes: [
+          'image/jpeg',
+          'image/png',
+          'image/webp',
+          'image/gif',
+          'video/mp4',
+          'video/webm',
+          'video/quicktime',
+        ],
         addRandomSuffix: true,
-        maximumSizeInBytes: 10 * 1024 * 1024,
+        maximumSizeInBytes: 100 * 1024 * 1024,
       }),
       onUploadCompleted: async () => {},
     })

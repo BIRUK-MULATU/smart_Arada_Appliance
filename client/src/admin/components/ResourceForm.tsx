@@ -2,6 +2,7 @@ import { useState } from 'react'
 import type { FormEvent } from 'react'
 import type { FieldConfig, FormValues } from './fieldTypes'
 import ImageUploadField from './ImageUploadField'
+import VideoUploadField from './VideoUploadField'
 
 export default function ResourceForm({
   title,
@@ -62,6 +63,14 @@ export default function ResourceForm({
 
               {field.type === 'image' && (
                 <ImageUploadField
+                  value={String(values[field.name] ?? '')}
+                  onChange={(url) => setField(field.name, url)}
+                  placeholder={field.placeholder}
+                />
+              )}
+
+              {field.type === 'video' && (
+                <VideoUploadField
                   value={String(values[field.name] ?? '')}
                   onChange={(url) => setField(field.name, url)}
                   placeholder={field.placeholder}
