@@ -1,11 +1,13 @@
 import express from 'express'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
-import 'dotenv/config'
+import dotenv from 'dotenv'
 import publicRoutes from './routes/public.js'
 import authRoutes from './routes/auth.js'
 import adminRoutes from './routes/admin.js'
 import { requireAdmin } from './middleware/requireAdmin.js'
+
+dotenv.config()
 
 const app = express()
 
