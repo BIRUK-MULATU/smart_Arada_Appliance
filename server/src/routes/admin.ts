@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import { handleUpload, type HandleUploadBody } from '@vercel/blob/client'
 import { prisma } from '../lib/prisma.js'
 import { defaultSettings, parseSettings } from '../lib/settings.js'
 import { omitUndefined } from '../lib/omitUndefined.js'
@@ -441,6 +442,27 @@ router.put('/settings', async (req, res) => {
     update: { data: JSON.stringify(merged) },
   })
   res.json(parseSettings(row.data))
+})
+
+// ---------- Product image uploads ----------
+
+router.post('/upload', async (req, res) => {
+  const body = req.body as HandleUploadBody
+  try {
+    const jsonResponse = await handleUpload({
+      body,
+      request: req,
+      onBeforeGenerateToken: async () => ({
+        allowedContentTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/gif'],
+        addRandomSuffix: true,
+        maximumSizeInBytes: 10 * 1024 * 1024,
+      }),
+      onUploadCompleted: async () => {},
+    })
+    res.json(jsonResponse)
+  } catch (error) {
+    res.status(400).json({ error: error instanceof Error ? error.message : 'Upload failed' })
+  }
 })
 
 export default router

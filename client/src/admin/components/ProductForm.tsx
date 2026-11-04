@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import type { FormEvent } from 'react'
+import type { ChangeEvent, FormEvent } from 'react'
+import { upload } from '@vercel/blob/client'
 import Icon from '../../components/ui/Icon'
 import type { AdminProduct, Category, ProductSpec } from '../../types/product'
 import type { Brand } from '../../types/content'
@@ -74,9 +75,40 @@ export default function ProductForm({
   const [form, setForm] = useState<FormState>(() => toFormState(initial, categories[0]?.id ?? 0))
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [uploadingField, setUploadingField] = useState<string | null>(null)
 
   function set<K extends keyof FormState>(key: K, value: FormState[K]) {
     setForm((prev) => ({ ...prev, [key]: value }))
+  }
+
+  async function uploadFromDevice(fieldKey: string, file: File, onDone: (url: string) => void) {
+    setUploadingField(fieldKey)
+    setError(null)
+    try {
+      const blob = await upload(file.name, file, {
+        access: 'public',
+        handleUploadUrl: '/api/admin/upload',
+      })
+      onDone(blob.url)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Upload failed')
+    } finally {
+      setUploadingField(null)
+    }
+  }
+
+  function handleMainImageFile(e: ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    e.target.value = ''
+    if (!file) return
+    void uploadFromDevice('main', file, (url) => set('image', url))
+  }
+
+  function handleGalleryImageFile(i: number, e: ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    e.target.value = ''
+    if (!file) return
+    void uploadFromDevice(`gallery-${i}`, file, (url) => updateImage(i, url))
   }
 
   function updateImage(i: number, value: string) {
@@ -243,15 +275,34 @@ export default function ProductForm({
             </label>
           </div>
 
-          <label className="flex flex-col gap-1.5 text-sm">
-            <span className="font-medium text-navy">Main image URL</span>
-            <input
-              className={inputClass}
-              placeholder="/placeholder.svg"
-              value={form.image}
-              onChange={(e) => set('image', e.target.value)}
-            />
-          </label>
+          <div className="flex flex-col gap-1.5 text-sm">
+            <span className="font-medium text-navy">Main image</span>
+            <div className="flex gap-2">
+              <input
+                className={`flex-1 ${inputClass}`}
+                placeholder="/placeholder.svg or https://..."
+                value={form.image}
+                onChange={(e) => set('image', e.target.value)}
+              />
+              <label className="flex cursor-pointer items-center justify-center rounded-lg border border-border px-3 text-sm font-semibold text-navy hover:border-navy">
+                {uploadingField === 'main' ? 'Uploading…' : 'Upload'}
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  disabled={uploadingField === 'main'}
+                  onChange={handleMainImageFile}
+                />
+              </label>
+            </div>
+            {form.image && (
+              <img
+                src={form.image}
+                alt="Main product preview"
+                className="h-20 w-20 rounded-lg border border-border object-cover"
+              />
+            )}
+          </div>
 
           <div className="flex flex-col gap-2">
             <div className="flex items-center justify-between">
@@ -271,6 +322,16 @@ export default function ProductForm({
                   value={url}
                   onChange={(e) => updateImage(i, e.target.value)}
                 />
+                <label className="flex cursor-pointer items-center justify-center rounded-lg border border-border px-3 text-sm font-semibold text-navy hover:border-navy">
+                  {uploadingField === `gallery-${i}` ? 'Uploading…' : 'Upload'}
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    disabled={uploadingField === `gallery-${i}`}
+                    onChange={(e) => handleGalleryImageFile(i, e)}
+                  />
+                </label>
                 <button
                   type="button"
                   onClick={() => removeImage(i)}
